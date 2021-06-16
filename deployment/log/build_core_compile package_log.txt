@@ -11,6 +11,6 @@ package:
       [jar] Building jar: C:\IT\Projects\Kohomai\Merge-connector\deployment\model\bundles\project.jar
 
 BUILD SUCCESSFUL
-Total time: 4 seconds
+Total time: 5 seconds
 
 

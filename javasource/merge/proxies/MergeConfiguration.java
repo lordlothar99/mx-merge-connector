@@ -24,6 +24,7 @@ public class MergeConfiguration
 		OrganizationName("OrganizationName"),
 		EmailAddress("EmailAddress"),
 		APIKey("APIKey"),
+		Integration("Integration"),
 		MergeConfiguration_Category("Merge.MergeConfiguration_Category");
 
 		private java.lang.String metaName;
@@ -261,6 +262,42 @@ public class MergeConfiguration
 	public final void setAPIKey(com.mendix.systemwideinterfaces.core.IContext context, java.lang.String apikey)
 	{
 		getMendixObject().setValue(context, MemberNames.APIKey.toString(), apikey);
+	}
+
+	/**
+	 * @return value of Integration
+	 */
+	public final java.lang.String getIntegration()
+	{
+		return getIntegration(getContext());
+	}
+
+	/**
+	 * @param context
+	 * @return value of Integration
+	 */
+	public final java.lang.String getIntegration(com.mendix.systemwideinterfaces.core.IContext context)
+	{
+		return (java.lang.String) getMendixObject().getValue(context, MemberNames.Integration.toString());
+	}
+
+	/**
+	 * Set value of Integration
+	 * @param integration
+	 */
+	public final void setIntegration(java.lang.String integration)
+	{
+		setIntegration(getContext(), integration);
+	}
+
+	/**
+	 * Set value of Integration
+	 * @param context
+	 * @param integration
+	 */
+	public final void setIntegration(com.mendix.systemwideinterfaces.core.IContext context, java.lang.String integration)
+	{
+		getMendixObject().setValue(context, MemberNames.Integration.toString(), integration);
 	}
 
 	/**

@@ -22,7 +22,6 @@ import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.stream.Collectors;
 
 public class MergeLink extends CustomJavaAction<java.lang.String>
 {
@@ -56,6 +55,10 @@ public class MergeLink extends CustomJavaAction<java.lang.String>
 	}
 
 	// BEGIN EXTRA CODE
+
+	/**
+	 * @see "https://www.merge.dev/docs/linking-flow/get-started"
+	 */
 	private String createLinkToken()
             throws IOException, InterruptedException, CoreException {
 
@@ -67,6 +70,9 @@ public class MergeLink extends CustomJavaAction<java.lang.String>
 				.map(c -> c.getName().getCaption())
 				.toArray(String[]::new);
         data.put("categories", categories);
+        if (this.configuration.getIntegration() != null && !"".equals(this.configuration.getIntegration().trim())) {
+			data.put("integration", this.configuration.getIntegration());
+		}
         ObjectMapper mapper = new ObjectMapper();
         String requestBody = mapper.writeValueAsString(data);
 
