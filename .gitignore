@@ -2,3 +2,4 @@ Merge-connector.mpr.bak
 Merge-connector.mpr.lock
 .idea*
 *.iml
+/deployment
