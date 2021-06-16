@@ -1,0 +1,8 @@
+Buildfile: C:\IT\Projects\Kohomai\Merge-connector\deployment\build_core.xml
+
+clean:
+
+BUILD SUCCESSFUL
+Total time: 0 seconds
+
+

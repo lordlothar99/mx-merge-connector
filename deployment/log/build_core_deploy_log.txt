@@ -1,0 +1,11 @@
+Buildfile: C:\IT\Projects\Kohomai\Merge-connector\deployment\build_core.xml
+
+deploy:
+     [copy] Copying 38 files to C:\IT\Projects\Kohomai\Merge-connector\deployment
+     [copy] Copying 2 files to C:\IT\Projects\Kohomai\Merge-connector\deployment\model\lib\userlib
+     [copy] Copying 5 files to C:\IT\Projects\Kohomai\Merge-connector\deployment\model\resources
+
+BUILD SUCCESSFUL
+Total time: 0 seconds
+
+
