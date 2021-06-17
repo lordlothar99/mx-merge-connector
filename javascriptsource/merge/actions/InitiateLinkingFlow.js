@@ -8,9 +8,7 @@
 import { Big } from "big.js";
 
 // BEGIN EXTRA CODE
-function onSuccess(public_token) {
-	return public_token;
-}
+import { MergeLink } from '../../../userlib/initialize.js';
 // END EXTRA CODE
 
 /**
@@ -19,13 +17,14 @@ function onSuccess(public_token) {
  */
 export async function InitiateLinkingFlow(linkToken) {
 	// BEGIN USER CODE
-	MergeLink.initialize({
-		linkToken: linkToken,
-		onSuccess: (public_token) => onSuccess(public_token),
+	return new Promise(function(resolve, reject) {
+		window.MergeLink.initialize({
+			linkToken: linkToken,
+			onSuccess: (public_token) => resolve(public_token),
+			onFailure: (event) => reject(event.error),
+		});
+
+		window.MergeLink.openLink();
 	});
-
-	MergeLink.openLink();
-
-	return onSuccess().resolve();
 	// END USER CODE
 }

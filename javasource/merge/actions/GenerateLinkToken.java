@@ -20,7 +20,9 @@ import java.net.URI;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class GenerateLinkToken extends CustomJavaAction<java.lang.String>
@@ -59,33 +61,51 @@ public class GenerateLinkToken extends CustomJavaAction<java.lang.String>
 	 * @return link_token
 	 */
 	private static String createLinkToken(merge.proxies.MergeConfiguration configuration)
-            throws IOException, InterruptedException, CoreException {
+			throws IOException, InterruptedException, CoreException {
+		return createLinkToken(configuration.getOrganizationId(),
+				configuration.getOrganizationName(),
+				configuration.getEmailAddress(),
+				configuration.getCategory_hris(),
+				configuration.getCategory_ats(),
+				configuration.getCategory_accounting(),
+				configuration.getIntegration(),
+				configuration.getAPIKey());
+	}
 
-        Map<Object, Object> data = new HashMap();
-        data.put("end_user_origin_id", configuration.getOrganizationId());             // unique entity ID
-        data.put("end_user_organization_name", configuration.getOrganizationName());   // your user's organization name
-        data.put("end_user_email_address", configuration.getEmailAddress());           // your user's email address
-        String[] categories = configuration.getMergeConfiguration_Category().stream()
-				.map(c -> c.getName().getCaption())
-				.toArray(String[]::new);
-        data.put("categories", categories);
-        if (configuration.getIntegration() != null && !"".equals(configuration.getIntegration().trim())) {
-			data.put("integration", configuration.getIntegration());
+	static String createLinkToken(String organizationId, String organizationName, String emailAddress, boolean categoryHris, boolean categoryAts, boolean categoryAccounting, String integration, String apiKey) throws IOException, InterruptedException {
+		Map<Object, Object> data = new HashMap();
+		data.put("end_user_origin_id", organizationId);
+		data.put("end_user_organization_name", organizationName);
+		data.put("end_user_email_address", emailAddress);
+		List<String> categories = new ArrayList<>();
+		if (categoryHris) {
+			categories.add("hris");
 		}
-        ObjectMapper mapper = new ObjectMapper();
-        String requestBody = mapper.writeValueAsString(data);
+		if (categoryAts) {
+			categories.add("ats");
+		}
+		if (categoryAccounting) {
+			categories.add("accounting");
+		}
+		data.put("categories", categories.toArray(String[]::new));
+		if (integration != null && !"".equals(integration.trim())) {
+			data.put("integration", integration);
+		}
+		ObjectMapper mapper = new ObjectMapper();
+		String requestBody = mapper.writeValueAsString(data);
 
-        HttpClient client = HttpClient.newHttpClient();
-        URI uri = URI.create("https://api.merge.dev/api/integrations/create-link-token");
-        HttpRequest request = HttpRequest.newBuilder(uri)
+		HttpClient client = HttpClient.newHttpClient();
+		URI uri = URI.create("https://api.merge.dev/api/integrations/create-link-token");
+		HttpRequest request = HttpRequest.newBuilder(uri)
                 .header("Content-Type", "application/json")
-                .header("Authorization", String.format("Bearer %s", configuration.getAPIKey()))
+                .header("Authorization", String.format("Bearer %s", apiKey))
                 .POST(HttpRequest.BodyPublishers.ofString(requestBody))
                 .build();
 
-        HttpResponse<String> linkTokenResult = client.send(request, HttpResponse.BodyHandlers.ofString());
-        String linkToken = new ObjectMapper().readValue(linkTokenResult.body(), ObjectNode.class).get("link_token").textValue();
-        return linkToken;
-    }
+		HttpResponse<String> linkTokenResult = client.send(request, HttpResponse.BodyHandlers.ofString());
+		ObjectNode jsonNodes = new ObjectMapper().readValue(linkTokenResult.body(), ObjectNode.class);
+		String linkToken = jsonNodes.get("link_token").textValue();
+		return linkToken;
+	}
 	// END EXTRA CODE
 }

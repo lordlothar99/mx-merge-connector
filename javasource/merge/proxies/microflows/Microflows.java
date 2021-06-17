@@ -28,22 +28,27 @@ public class Microflows
 		params.put("ApiKey", _apiKey);
 		return (java.lang.String) Core.microflowCall("Merge.Act_RetrieveAccountToken").withParams(params).execute(context);
 	}
+	public static void backTo_Step1(IContext context)
+	{
+		Map<java.lang.String, Object> params = new HashMap<>();
+		Core.microflowCall("Merge.BackTo_Step1").withParams(params).execute(context);
+	}
 	public static merge.proxies.MergeConfiguration getOrNew_MergeConfiguration(IContext context)
 	{
 		Map<java.lang.String, Object> params = new HashMap<>();
 		IMendixObject result = (IMendixObject)Core.microflowCall("Merge.GetOrNew_MergeConfiguration").withParams(params).execute(context);
 		return result == null ? null : merge.proxies.MergeConfiguration.initialize(context, result);
 	}
-	public static void proceedStep2(IContext context, merge.proxies.MergeConfiguration _mergeConfiguration)
+	public static void proceed_Step2(IContext context, merge.proxies.MergeConfiguration _mergeConfiguration)
 	{
 		Map<java.lang.String, Object> params = new HashMap<>();
 		params.put("MergeConfiguration", _mergeConfiguration == null ? null : _mergeConfiguration.getMendixObject());
-		Core.microflowCall("Merge.ProceedStep2").withParams(params).execute(context);
+		Core.microflowCall("Merge.Proceed_Step2").withParams(params).execute(context);
 	}
-	public static void proceedStep3(IContext context, merge.proxies.LinkContext _linkContext)
+	public static void proceed_Step3(IContext context, merge.proxies.LinkContext _linkContext)
 	{
 		Map<java.lang.String, Object> params = new HashMap<>();
 		params.put("LinkContext", _linkContext == null ? null : _linkContext.getMendixObject());
-		Core.microflowCall("Merge.ProceedStep3").withParams(params).execute(context);
+		Core.microflowCall("Merge.Proceed_Step3").withParams(params).execute(context);
 	}
 }

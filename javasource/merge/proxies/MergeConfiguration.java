@@ -25,8 +25,10 @@ public class MergeConfiguration
 		EmailAddress("EmailAddress"),
 		APIKey("APIKey"),
 		Integration("Integration"),
-		AccountToken("AccountToken"),
-		MergeConfiguration_Category("Merge.MergeConfiguration_Category");
+		Category_hris("Category_hris"),
+		Category_ats("Category_ats"),
+		Category_accounting("Category_accounting"),
+		AccountToken("AccountToken");
 
 		private java.lang.String metaName;
 
@@ -302,6 +304,114 @@ public class MergeConfiguration
 	}
 
 	/**
+	 * @return value of Category_hris
+	 */
+	public final java.lang.Boolean getCategory_hris()
+	{
+		return getCategory_hris(getContext());
+	}
+
+	/**
+	 * @param context
+	 * @return value of Category_hris
+	 */
+	public final java.lang.Boolean getCategory_hris(com.mendix.systemwideinterfaces.core.IContext context)
+	{
+		return (java.lang.Boolean) getMendixObject().getValue(context, MemberNames.Category_hris.toString());
+	}
+
+	/**
+	 * Set value of Category_hris
+	 * @param category_hris
+	 */
+	public final void setCategory_hris(java.lang.Boolean category_hris)
+	{
+		setCategory_hris(getContext(), category_hris);
+	}
+
+	/**
+	 * Set value of Category_hris
+	 * @param context
+	 * @param category_hris
+	 */
+	public final void setCategory_hris(com.mendix.systemwideinterfaces.core.IContext context, java.lang.Boolean category_hris)
+	{
+		getMendixObject().setValue(context, MemberNames.Category_hris.toString(), category_hris);
+	}
+
+	/**
+	 * @return value of Category_ats
+	 */
+	public final java.lang.Boolean getCategory_ats()
+	{
+		return getCategory_ats(getContext());
+	}
+
+	/**
+	 * @param context
+	 * @return value of Category_ats
+	 */
+	public final java.lang.Boolean getCategory_ats(com.mendix.systemwideinterfaces.core.IContext context)
+	{
+		return (java.lang.Boolean) getMendixObject().getValue(context, MemberNames.Category_ats.toString());
+	}
+
+	/**
+	 * Set value of Category_ats
+	 * @param category_ats
+	 */
+	public final void setCategory_ats(java.lang.Boolean category_ats)
+	{
+		setCategory_ats(getContext(), category_ats);
+	}
+
+	/**
+	 * Set value of Category_ats
+	 * @param context
+	 * @param category_ats
+	 */
+	public final void setCategory_ats(com.mendix.systemwideinterfaces.core.IContext context, java.lang.Boolean category_ats)
+	{
+		getMendixObject().setValue(context, MemberNames.Category_ats.toString(), category_ats);
+	}
+
+	/**
+	 * @return value of Category_accounting
+	 */
+	public final java.lang.Boolean getCategory_accounting()
+	{
+		return getCategory_accounting(getContext());
+	}
+
+	/**
+	 * @param context
+	 * @return value of Category_accounting
+	 */
+	public final java.lang.Boolean getCategory_accounting(com.mendix.systemwideinterfaces.core.IContext context)
+	{
+		return (java.lang.Boolean) getMendixObject().getValue(context, MemberNames.Category_accounting.toString());
+	}
+
+	/**
+	 * Set value of Category_accounting
+	 * @param category_accounting
+	 */
+	public final void setCategory_accounting(java.lang.Boolean category_accounting)
+	{
+		setCategory_accounting(getContext(), category_accounting);
+	}
+
+	/**
+	 * Set value of Category_accounting
+	 * @param context
+	 * @param category_accounting
+	 */
+	public final void setCategory_accounting(com.mendix.systemwideinterfaces.core.IContext context, java.lang.Boolean category_accounting)
+	{
+		getMendixObject().setValue(context, MemberNames.Category_accounting.toString(), category_accounting);
+	}
+
+	/**
 	 * @return value of AccountToken
 	 */
 	public final java.lang.String getAccountToken()
@@ -335,52 +445,6 @@ public class MergeConfiguration
 	public final void setAccountToken(com.mendix.systemwideinterfaces.core.IContext context, java.lang.String accounttoken)
 	{
 		getMendixObject().setValue(context, MemberNames.AccountToken.toString(), accounttoken);
-	}
-
-	/**
-	 * @return value of MergeConfiguration_Category
-	 */
-	public final java.util.List<merge.proxies.Category> getMergeConfiguration_Category() throws com.mendix.core.CoreException
-	{
-		return getMergeConfiguration_Category(getContext());
-	}
-
-	/**
-	 * @param context
-	 * @return value of MergeConfiguration_Category
-	 */
-	@SuppressWarnings("unchecked")
-	public final java.util.List<merge.proxies.Category> getMergeConfiguration_Category(com.mendix.systemwideinterfaces.core.IContext context) throws com.mendix.core.CoreException
-	{
-		java.util.List<merge.proxies.Category> result = new java.util.ArrayList<merge.proxies.Category>();
-		Object valueObject = getMendixObject().getValue(context, MemberNames.MergeConfiguration_Category.toString());
-		if (valueObject == null)
-			return result;
-		for (com.mendix.systemwideinterfaces.core.IMendixObject mendixObject : com.mendix.core.Core.retrieveIdList(context, (java.util.List<com.mendix.systemwideinterfaces.core.IMendixIdentifier>) valueObject))
-			result.add(merge.proxies.Category.initialize(context, mendixObject));
-		return result;
-	}
-
-	/**
-	 * Set value of MergeConfiguration_Category
-	 * @param mergeconfiguration_category
-	 */
-	public final void setMergeConfiguration_Category(java.util.List<merge.proxies.Category> mergeconfiguration_category)
-	{
-		setMergeConfiguration_Category(getContext(), mergeconfiguration_category);
-	}
-
-	/**
-	 * Set value of MergeConfiguration_Category
-	 * @param context
-	 * @param mergeconfiguration_category
-	 */
-	public final void setMergeConfiguration_Category(com.mendix.systemwideinterfaces.core.IContext context, java.util.List<merge.proxies.Category> mergeconfiguration_category)
-	{
-		java.util.List<com.mendix.systemwideinterfaces.core.IMendixIdentifier> identifiers = new java.util.ArrayList<com.mendix.systemwideinterfaces.core.IMendixIdentifier>();
-		for (merge.proxies.Category proxyObject : mergeconfiguration_category)
-			identifiers.add(proxyObject.getMendixObject().getId());
-		getMendixObject().setValue(context, MemberNames.MergeConfiguration_Category.toString(), identifiers);
 	}
 
 	/**
