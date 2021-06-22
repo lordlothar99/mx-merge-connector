@@ -9,6 +9,7 @@
 
 package merge.actions;
 
+import com.mendix.logging.ILogNode;
 import com.mendix.systemwideinterfaces.core.IContext;
 import com.mendix.webui.CustomJavaAction;
 import com.mendix.systemwideinterfaces.core.IMendixObject;
@@ -21,7 +22,11 @@ import merge_hris_client.auth.*;
 import merge_hris_client.model.*;
 import merge_hris_client.api.EmployeesApi;
 import org.threeten.bp.OffsetDateTime;
-import java.util.logging.Logger;
+import com.mendix.core.Core;
+import java.util.List;
+import java.util.stream.Collectors;
+import static merge.actions.MergeConverters.*;
+import static merge.actions.MergeConverters.asOffsetDateTime;
 
 public class GetEmployees extends CustomJavaAction<IMendixObject>
 {
@@ -44,18 +49,16 @@ public class GetEmployees extends CustomJavaAction<IMendixObject>
 		this.params = __params == null ? null : merge.proxies.GetEmployeesParam.initialize(getContext(), __params);
 
 		// BEGIN USER CODE
+		logger.info("{apiKey:"+apiKey+",accountToken:"+accountToken+",params:"+params+"}");
 		PaginatedEmployeeList result = getEmployees(apiKey, accountToken, params);
+		logger.info(result);
 		GetEmployeesResult mxResult = new GetEmployeesResult(getContext());
 		mxResult.setNext(result.getNext());
 		mxResult.setPrevious(result.getPrevious());
-		for (Employee employee : result.getResults()) {
-			merge.proxies.Employee mxEmployee = new merge.proxies.Employee(getContext());
-			mxEmployee.set_Id(employee.getId().toString());
-			mxEmployee.setFirstName(employee.getFirstName());
-			mxEmployee.setLastName(employee.getLastName());
-			mxEmployee.setDisplayFullName(employee.getDisplayFullName());
-			mxResult.getGetEmployeesResult_Employee().add(mxEmployee);
-		}
+		List<merge.proxies.Employee> employees = result.getResults().stream()
+				.map(e -> toMxEmployee(e))
+				.collect(Collectors.toList());
+		mxResult.setGetEmployeesResult_Employee(getContext(), employees);
 		return mxResult.getMendixObject();
 		// END USER CODE
 	}
@@ -70,8 +73,16 @@ public class GetEmployees extends CustomJavaAction<IMendixObject>
 	}
 
 	// BEGIN EXTRA CODE
-	private static Logger logger = Logger.getLogger("GetEmployees");
+	private merge.proxies.Employee toMxEmployee(Employee employee) {
+		merge.proxies.Employee mxEmployee = new merge.proxies.Employee(getContext());
+		mxEmployee.set_Id(employee.getId().toString());
+		mxEmployee.setFirstName(employee.getFirstName());
+		mxEmployee.setLastName(employee.getLastName());
+		mxEmployee.setDisplayFullName(employee.getDisplayFullName());
+		return mxEmployee;
+	}
 
+	private static ILogNode logger = Core.getLogger("Merge.GetEmployees");
 	private static PaginatedEmployeeList getEmployees(String apiKey, String accountToken, GetEmployeesParam params) throws Exception {
 		ApiClient defaultClient = Configuration.getDefaultApiClient();
 		defaultClient.setBasePath("https://api.merge.dev/api/hris/v1");
@@ -85,27 +96,26 @@ public class GetEmployees extends CustomJavaAction<IMendixObject>
 		EmployeesApi apiInstance = new EmployeesApi(defaultClient);
 		String xAccountToken = accountToken; // String | Token identifying the end user.
 		String companyId = null; // String | If provided, will only return employees for this company.
-		OffsetDateTime createdAfter = null; // OffsetDateTime | If provided, will only return objects created after this datetime.
-		OffsetDateTime createdBefore = null; // OffsetDateTime | If provided, will only return objects created before this datetime.
+		OffsetDateTime createdAfter = asOffsetDateTime(params.getCreatedAfter()); // OffsetDateTime | If provided, will only return objects created after this datetime.
+		OffsetDateTime createdBefore = asOffsetDateTime(params.getCreatedBefore()); // OffsetDateTime | If provided, will only return objects created before this datetime.
 		String cursor = null; // String | The pagination cursor value.
-		Boolean includeRemoteData = null; // Boolean | Whether to include the original data Merge fetched from the third-party to produce these models.
+		Boolean includeRemoteData = asBoolean(params.getIncludeRemoteData()); // Boolean | Whether to include the original data Merge fetched from the third-party to produce these models.
 		Boolean includeSensitiveFields = null; // Boolean | Whether to include sensetive fields (such as social security numbers) in the response.
 		String managerId = null; // String | If provided, will only return employees for this manager.
-		OffsetDateTime modifiedAfter = null; // OffsetDateTime | If provided, will only return objects modified after this datetime.
-		OffsetDateTime modifiedBefore = null; // OffsetDateTime | If provided, will only return objects modified before this datetime.
-		Integer pageSize = null; // Integer | Number of results to return per page.
-		String remoteId = null; // String | The API provider's ID for the given object.
+		OffsetDateTime modifiedAfter = asOffsetDateTime(params.getModifiedAfter()); // OffsetDateTime | If provided, will only return objects modified after this datetime.
+		OffsetDateTime modifiedBefore = asOffsetDateTime(params.getModifiedBefore()); // OffsetDateTime | If provided, will only return objects modified before this datetime.
+		Integer pageSize = params.getPageSize(); // Integer | Number of results to return per page.
+		String remoteId = params.getRemoteId(); // String | The API provider's ID for the given object.
 		String teamId = null; // String | If provided, will only return employees for this team.
 		String workLocationId = null; // String | If provided, will only return employees for this location.
 		try {
 			PaginatedEmployeeList result = apiInstance.employeesList(xAccountToken, companyId, createdAfter, createdBefore, cursor, includeRemoteData, includeSensitiveFields, managerId, modifiedAfter, modifiedBefore, pageSize, remoteId, teamId, workLocationId);
-			logger.info(String.valueOf("result : " + result));
 			return result;
 		} catch (ApiException e) {
-			logger.severe("Exception when calling EmployeesApi#employeesList");
-			logger.severe("Status code: " + e.getCode());
-			logger.severe("Reason: " + e.getResponseBody());
-			logger.severe("Response headers: " + e.getResponseHeaders());
+			logger.error("Exception when calling EmployeesApi#employeesList");
+			logger.error("Status code: " + e.getCode());
+			logger.error("Reason: " + e.getResponseBody());
+			logger.error("Response headers: " + e.getResponseHeaders());
 			throw new Exception("xception when calling EmployeesApi#employeesList : " + e.getCode() + " / " + e.getResponseBody(), e);
 		}
 	}
