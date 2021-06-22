@@ -8,6 +8,8 @@ public class UserActionsRegistrar
   {
     registrator.bundleComponentLoaded();
     registrator.registerUserAction(merge.actions.GenerateLinkToken.class);
+    registrator.registerUserAction(merge.actions.GetEmployees.class);
+    registrator.registerUserAction(merge.actions.GetLocations.class);
     registrator.registerUserAction(merge.actions.RetrieveAccountToken.class);
     registrator.registerUserAction(system.actions.VerifyPassword.class);
   }
