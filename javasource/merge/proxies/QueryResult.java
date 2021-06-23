@@ -71,6 +71,9 @@ public class QueryResult
 		if (com.mendix.core.Core.isSubClassOf("Merge.GetEmployeesResult", mendixObject.getType()))
 			return merge.proxies.GetEmployeesResult.initialize(context, mendixObject);
 
+		if (com.mendix.core.Core.isSubClassOf("Merge.GetLocationsResult", mendixObject.getType()))
+			return merge.proxies.GetLocationsResult.initialize(context, mendixObject);
+
 		return new merge.proxies.QueryResult(context, mendixObject);
 	}
 

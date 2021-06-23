@@ -16,6 +16,7 @@ public class GetEmployeesParam extends merge.proxies.QueryParams
 	 */
 	public enum MemberNames
 	{
+		AccountToken("AccountToken"),
 		CreatedAfter("CreatedAfter"),
 		CreatedBefore("CreatedBefore"),
 		Cursor("Cursor"),

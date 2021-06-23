@@ -46,12 +46,24 @@ public class Microflows
 		}
 		return result;
 	}
-	public static java.util.List<merge.proxies.Employee> employeesList(IContext context, java.lang.String _apiKey, java.lang.String _accountToken, merge.proxies.GetEmployeesParam _getEmployeesParam)
+	public static java.util.List<merge.proxies.Location> dS_Locations(IContext context)
+	{
+		Map<java.lang.String, Object> params = new HashMap<>();
+		java.util.List<IMendixObject> objs = Core.microflowCall("Merge.DS_Locations").withParams(params).execute(context);
+		java.util.List<merge.proxies.Location> result = null;
+		if (objs != null)
+		{
+			result = new java.util.ArrayList<>();
+			for (IMendixObject obj : objs)
+				result.add(merge.proxies.Location.initialize(context, obj));
+		}
+		return result;
+	}
+	public static java.util.List<merge.proxies.Employee> employeesList(IContext context, java.lang.String _apiKey, merge.proxies.GetEmployeesParam _params)
 	{
 		Map<java.lang.String, Object> params = new HashMap<>();
 		params.put("ApiKey", _apiKey);
-		params.put("AccountToken", _accountToken);
-		params.put("GetEmployeesParam", _getEmployeesParam == null ? null : _getEmployeesParam.getMendixObject());
+		params.put("Params", _params == null ? null : _params.getMendixObject());
 		java.util.List<IMendixObject> objs = Core.microflowCall("Merge.EmployeesList").withParams(params).execute(context);
 		java.util.List<merge.proxies.Employee> result = null;
 		if (objs != null)
@@ -68,11 +80,11 @@ public class Microflows
 		IMendixObject result = (IMendixObject)Core.microflowCall("Merge.GetOrNew_MergeConfiguration").withParams(params).execute(context);
 		return result == null ? null : merge.proxies.MergeConfiguration.initialize(context, result);
 	}
-	public static void locationsList(IContext context, java.lang.String _apiKey, java.lang.String _accountToken)
+	public static void locationsList(IContext context, java.lang.String _apiKey, merge.proxies.GetLocationsParam _params)
 	{
 		Map<java.lang.String, Object> params = new HashMap<>();
 		params.put("ApiKey", _apiKey);
-		params.put("AccountToken", _accountToken);
+		params.put("Params", _params == null ? null : _params.getMendixObject());
 		Core.microflowCall("Merge.LocationsList").withParams(params).execute(context);
 	}
 	public static void proceed_Step2(IContext context, merge.proxies.MergeConfiguration _mergeConfiguration)

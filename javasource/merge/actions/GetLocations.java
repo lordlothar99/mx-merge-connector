@@ -9,8 +9,12 @@
 
 package merge.actions;
 
+import com.mendix.core.Core;
+import com.mendix.logging.ILogNode;
 import com.mendix.systemwideinterfaces.core.IContext;
 import com.mendix.webui.CustomJavaAction;
+import merge.proxies.GetLocationsParam;
+import merge.proxies.GetLocationsResult;
 import merge_hris_client.ApiClient;
 import merge_hris_client.ApiException;
 import merge_hris_client.Configuration;
@@ -18,24 +22,49 @@ import merge_hris_client.auth.*;
 import merge_hris_client.model.*;
 import merge_hris_client.api.LocationsApi;
 import org.threeten.bp.OffsetDateTime;
+import com.mendix.systemwideinterfaces.core.IMendixObject;
+import java.util.List;
+import java.util.stream.Collectors;
+import static merge.actions.MergeConverters.asBoolean;
+import static merge.actions.MergeConverters.asOffsetDateTime;
 
-public class GetLocations extends CustomJavaAction<java.lang.String>
+public class GetLocations extends CustomJavaAction<IMendixObject>
 {
-	private java.lang.String accountToken;
 	private java.lang.String apiKey;
+	private IMendixObject __params;
+	private merge.proxies.GetLocationsParam params;
 
-	public GetLocations(IContext context, java.lang.String accountToken, java.lang.String apiKey)
+	public GetLocations(IContext context, java.lang.String apiKey, IMendixObject params)
 	{
 		super(context);
-		this.accountToken = accountToken;
 		this.apiKey = apiKey;
+		this.__params = params;
 	}
 
 	@java.lang.Override
-	public java.lang.String executeAction() throws Exception
+	public IMendixObject executeAction() throws Exception
 	{
+		this.params = __params == null ? null : merge.proxies.GetLocationsParam.initialize(getContext(), __params);
+
 		// BEGIN USER CODE
-		return getLocations(this.apiKey, this.accountToken);
+		if (logger.isTraceEnabled()) {
+			StringUtils.ToStringBuilder builder = new StringUtils.ToStringBuilder();
+			builder.append("apiKey", apiKey);
+			builder.append("params", StringUtils.toString(params.getMendixObject(), getContext(), "    "));
+			logger.trace(builder.toString());
+		}
+		PaginatedLocationList results = getLocations(this.apiKey, this.params);
+		if (logger.isTraceEnabled()) {
+			logger.trace(results);
+		}
+		GetLocationsResult mxResult = new GetLocationsResult(getContext());
+		mxResult.setNext(results.getNext());
+		mxResult.setPrevious(results.getPrevious());
+		List<merge.proxies.Location> locations = results.getResults().stream()
+				.map(l -> toMxLocation(l))
+				.collect(Collectors.toList());
+		mxResult.setGetLocationsResult_Location(getContext(), locations);
+		return mxResult.getMendixObject();
 		// END USER CODE
 	}
 
@@ -49,7 +78,23 @@ public class GetLocations extends CustomJavaAction<java.lang.String>
 	}
 
 	// BEGIN EXTRA CODE
-	private static String getLocations(String apiKey, String accountToken) {
+	private static ILogNode logger = Core.getLogger("Merge.GetLocations");
+
+	private merge.proxies.Location toMxLocation(Location location) {
+		merge.proxies.Location mxLocation = new merge.proxies.Location(getContext());
+		mxLocation.set_Id(location.getId().toString());
+		mxLocation.setCity(location.getCity());
+		mxLocation.setCountry(location.getCountry().getValue());
+		mxLocation.setPhoneNumber(location.getPhoneNumber());
+		mxLocation.setRemoteId(location.getRemoteId());
+		mxLocation.setState(location.getState());
+		mxLocation.setStreet1(location.getStreet1());
+		mxLocation.setStreet2(location.getStreet2());
+		mxLocation.setZipCode(location.getZipCode());
+		return mxLocation;
+	}
+
+	private static PaginatedLocationList getLocations(String apiKey, GetLocationsParam params) throws ApiException {
 		ApiClient defaultClient = Configuration.getDefaultApiClient();
 		defaultClient.setBasePath("https://api.merge.dev/api/hris/v1");
 
@@ -60,27 +105,18 @@ public class GetLocations extends CustomJavaAction<java.lang.String>
 		tokenAuth.setApiKeyPrefix("Bearer");
 
 		LocationsApi apiInstance = new LocationsApi(defaultClient);
-		String xAccountToken = accountToken; // String | Token identifying the end user.
-		OffsetDateTime createdAfter = null; // OffsetDateTime | If provided, will only return objects created after this datetime.
-		OffsetDateTime createdBefore = null; // OffsetDateTime | If provided, will only return objects created before this datetime.
+		String xAccountToken = params.getAccountToken(); // String | Token identifying the end user.
+		OffsetDateTime createdAfter = asOffsetDateTime(params.getCreatedAfter()); // OffsetDateTime | If provided, will only return objects created after this datetime.
+		OffsetDateTime createdBefore = asOffsetDateTime(params.getCreatedBefore()); // OffsetDateTime | If provided, will only return objects created before this datetime.
 		String cursor = null; // String | The pagination cursor value.
-		Boolean includeRemoteData = true; // Boolean | Whether to include the original data Merge fetched from the third-party to produce these models.
-		OffsetDateTime modifiedAfter = null; // OffsetDateTime | If provided, will only return objects modified after this datetime.
-		OffsetDateTime modifiedBefore = null; // OffsetDateTime | If provided, will only return objects modified before this datetime.
-		Integer pageSize = null; // Integer | Number of results to return per page.
-		String remoteId = null; // String | The API provider's ID for the given object.
-		try {
-			PaginatedLocationList result = apiInstance.locationsList(xAccountToken, createdAfter, createdBefore, cursor, includeRemoteData, modifiedAfter, modifiedBefore, pageSize, remoteId);
-			System.out.println(result);
-			return String.valueOf(result.getResults().size());
-		} catch (ApiException e) {
-			System.err.println("Exception when calling LocationsApi#locationsList");
-			System.err.println("Status code: " + e.getCode());
-			System.err.println("Reason: " + e.getResponseBody());
-			System.err.println("Response headers: " + e.getResponseHeaders());
-			e.printStackTrace();
-			return "error : " + e.getCode() + "/" + e.getResponseBody() + "/" + e.getResponseHeaders();
-		}
+		Boolean includeRemoteData = asBoolean(params.getIncludeRemoteData()); // Boolean | Whether to include the original data Merge fetched from the third-party to produce these models.
+		OffsetDateTime modifiedAfter = asOffsetDateTime(params.getModifiedAfter()); // OffsetDateTime | If provided, will only return objects modified after this datetime.
+		OffsetDateTime modifiedBefore = asOffsetDateTime(params.getModifiedBefore()); // OffsetDateTime | If provided, will only return objects modified before this datetime.
+		Integer pageSize = params.getPageSize(); // Integer | Number of results to return per page.
+		String remoteId = params.getRemoteId(); // String | The API provider's ID for the given object.
+
+		PaginatedLocationList result = apiInstance.locationsList(xAccountToken, createdAfter, createdBefore, cursor, includeRemoteData, modifiedAfter, modifiedBefore, pageSize, remoteId);
+		return result;
 	}
 	// END EXTRA CODE
 }

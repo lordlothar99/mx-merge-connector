@@ -27,18 +27,17 @@ import java.util.List;
 import java.util.stream.Collectors;
 import static merge.actions.MergeConverters.*;
 import static merge.actions.MergeConverters.asOffsetDateTime;
+import static merge.actions.StringUtils.*;
 
 public class GetEmployees extends CustomJavaAction<IMendixObject>
 {
-	private java.lang.String accountToken;
 	private java.lang.String apiKey;
 	private IMendixObject __params;
 	private merge.proxies.GetEmployeesParam params;
 
-	public GetEmployees(IContext context, java.lang.String accountToken, java.lang.String apiKey, IMendixObject params)
+	public GetEmployees(IContext context, java.lang.String apiKey, IMendixObject params)
 	{
 		super(context);
-		this.accountToken = accountToken;
 		this.apiKey = apiKey;
 		this.__params = params;
 	}
@@ -49,13 +48,20 @@ public class GetEmployees extends CustomJavaAction<IMendixObject>
 		this.params = __params == null ? null : merge.proxies.GetEmployeesParam.initialize(getContext(), __params);
 
 		// BEGIN USER CODE
-		logger.info("{apiKey:"+apiKey+",accountToken:"+accountToken+",params:"+params+"}");
-		PaginatedEmployeeList result = getEmployees(apiKey, accountToken, params);
-		logger.info(result);
+		if (logger.isTraceEnabled()) {
+			StringUtils.ToStringBuilder builder = new ToStringBuilder();
+			builder.append("apiKey", apiKey);
+			builder.append("params", StringUtils.toString(params.getMendixObject(), getContext(), "    "));
+			logger.trace(builder.toString());
+		}
+		PaginatedEmployeeList results = getEmployees(apiKey, params);
+		if (logger.isTraceEnabled()) {
+			logger.trace(results);
+		}
 		GetEmployeesResult mxResult = new GetEmployeesResult(getContext());
-		mxResult.setNext(result.getNext());
-		mxResult.setPrevious(result.getPrevious());
-		List<merge.proxies.Employee> employees = result.getResults().stream()
+		mxResult.setNext(results.getNext());
+		mxResult.setPrevious(results.getPrevious());
+		List<merge.proxies.Employee> employees = results.getResults().stream()
 				.map(e -> toMxEmployee(e))
 				.collect(Collectors.toList());
 		mxResult.setGetEmployeesResult_Employee(getContext(), employees);
@@ -73,6 +79,8 @@ public class GetEmployees extends CustomJavaAction<IMendixObject>
 	}
 
 	// BEGIN EXTRA CODE
+	private static ILogNode logger = Core.getLogger("Merge.GetEmployees");
+
 	private merge.proxies.Employee toMxEmployee(Employee employee) {
 		merge.proxies.Employee mxEmployee = new merge.proxies.Employee(getContext());
 		mxEmployee.set_Id(employee.getId().toString());
@@ -82,8 +90,7 @@ public class GetEmployees extends CustomJavaAction<IMendixObject>
 		return mxEmployee;
 	}
 
-	private static ILogNode logger = Core.getLogger("Merge.GetEmployees");
-	private static PaginatedEmployeeList getEmployees(String apiKey, String accountToken, GetEmployeesParam params) throws Exception {
+	private static PaginatedEmployeeList getEmployees(String apiKey, GetEmployeesParam params) throws ApiException {
 		ApiClient defaultClient = Configuration.getDefaultApiClient();
 		defaultClient.setBasePath("https://api.merge.dev/api/hris/v1");
 
@@ -94,7 +101,7 @@ public class GetEmployees extends CustomJavaAction<IMendixObject>
 		tokenAuth.setApiKeyPrefix("Bearer");
 
 		EmployeesApi apiInstance = new EmployeesApi(defaultClient);
-		String xAccountToken = accountToken; // String | Token identifying the end user.
+		String xAccountToken = params.getAccountToken(); // String | Token identifying the end user.
 		String companyId = null; // String | If provided, will only return employees for this company.
 		OffsetDateTime createdAfter = asOffsetDateTime(params.getCreatedAfter()); // OffsetDateTime | If provided, will only return objects created after this datetime.
 		OffsetDateTime createdBefore = asOffsetDateTime(params.getCreatedBefore()); // OffsetDateTime | If provided, will only return objects created before this datetime.
@@ -108,16 +115,9 @@ public class GetEmployees extends CustomJavaAction<IMendixObject>
 		String remoteId = params.getRemoteId(); // String | The API provider's ID for the given object.
 		String teamId = null; // String | If provided, will only return employees for this team.
 		String workLocationId = null; // String | If provided, will only return employees for this location.
-		try {
-			PaginatedEmployeeList result = apiInstance.employeesList(xAccountToken, companyId, createdAfter, createdBefore, cursor, includeRemoteData, includeSensitiveFields, managerId, modifiedAfter, modifiedBefore, pageSize, remoteId, teamId, workLocationId);
-			return result;
-		} catch (ApiException e) {
-			logger.error("Exception when calling EmployeesApi#employeesList");
-			logger.error("Status code: " + e.getCode());
-			logger.error("Reason: " + e.getResponseBody());
-			logger.error("Response headers: " + e.getResponseHeaders());
-			throw new Exception("xception when calling EmployeesApi#employeesList : " + e.getCode() + " / " + e.getResponseBody(), e);
-		}
+
+		PaginatedEmployeeList result = apiInstance.employeesList(xAccountToken, companyId, createdAfter, createdBefore, cursor, includeRemoteData, includeSensitiveFields, managerId, modifiedAfter, modifiedBefore, pageSize, remoteId, teamId, workLocationId);
+		return result;
 	}
 	// END EXTRA CODE
 }

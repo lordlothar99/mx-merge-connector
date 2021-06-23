@@ -20,6 +20,7 @@ public class QueryParams
 	 */
 	public enum MemberNames
 	{
+		AccountToken("AccountToken"),
 		CreatedAfter("CreatedAfter"),
 		CreatedBefore("CreatedBefore"),
 		Cursor("Cursor"),
@@ -77,6 +78,9 @@ public class QueryParams
 		if (com.mendix.core.Core.isSubClassOf("Merge.GetEmployeesParam", mendixObject.getType()))
 			return merge.proxies.GetEmployeesParam.initialize(context, mendixObject);
 
+		if (com.mendix.core.Core.isSubClassOf("Merge.GetLocationsParam", mendixObject.getType()))
+			return merge.proxies.GetLocationsParam.initialize(context, mendixObject);
+
 		return new merge.proxies.QueryParams(context, mendixObject);
 	}
 
@@ -117,6 +121,42 @@ public class QueryParams
 	{
 		com.mendix.core.Core.delete(context, getMendixObject());
 	}
+	/**
+	 * @return value of AccountToken
+	 */
+	public final java.lang.String getAccountToken()
+	{
+		return getAccountToken(getContext());
+	}
+
+	/**
+	 * @param context
+	 * @return value of AccountToken
+	 */
+	public final java.lang.String getAccountToken(com.mendix.systemwideinterfaces.core.IContext context)
+	{
+		return (java.lang.String) getMendixObject().getValue(context, MemberNames.AccountToken.toString());
+	}
+
+	/**
+	 * Set value of AccountToken
+	 * @param accounttoken
+	 */
+	public final void setAccountToken(java.lang.String accounttoken)
+	{
+		setAccountToken(getContext(), accounttoken);
+	}
+
+	/**
+	 * Set value of AccountToken
+	 * @param context
+	 * @param accounttoken
+	 */
+	public final void setAccountToken(com.mendix.systemwideinterfaces.core.IContext context, java.lang.String accounttoken)
+	{
+		getMendixObject().setValue(context, MemberNames.AccountToken.toString(), accounttoken);
+	}
+
 	/**
 	 * @return value of CreatedAfter
 	 */
