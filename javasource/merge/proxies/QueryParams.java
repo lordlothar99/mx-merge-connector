@@ -75,11 +75,11 @@ public class QueryParams
 	 */
 	public static merge.proxies.QueryParams initialize(com.mendix.systemwideinterfaces.core.IContext context, com.mendix.systemwideinterfaces.core.IMendixObject mendixObject)
 	{
-		if (com.mendix.core.Core.isSubClassOf("Merge.GetEmployeesParam", mendixObject.getType()))
-			return merge.proxies.GetEmployeesParam.initialize(context, mendixObject);
+		if (com.mendix.core.Core.isSubClassOf("Merge.EmployeesListParams", mendixObject.getType()))
+			return merge.proxies.EmployeesListParams.initialize(context, mendixObject);
 
-		if (com.mendix.core.Core.isSubClassOf("Merge.GetLocationsParam", mendixObject.getType()))
-			return merge.proxies.GetLocationsParam.initialize(context, mendixObject);
+		if (com.mendix.core.Core.isSubClassOf("Merge.LocationsListParams", mendixObject.getType()))
+			return merge.proxies.LocationsListParams.initialize(context, mendixObject);
 
 		return new merge.proxies.QueryParams(context, mendixObject);
 	}

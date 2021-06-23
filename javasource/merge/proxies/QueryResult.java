@@ -68,11 +68,11 @@ public class QueryResult
 	 */
 	public static merge.proxies.QueryResult initialize(com.mendix.systemwideinterfaces.core.IContext context, com.mendix.systemwideinterfaces.core.IMendixObject mendixObject)
 	{
-		if (com.mendix.core.Core.isSubClassOf("Merge.GetEmployeesResult", mendixObject.getType()))
-			return merge.proxies.GetEmployeesResult.initialize(context, mendixObject);
+		if (com.mendix.core.Core.isSubClassOf("Merge.EmployeesListResult", mendixObject.getType()))
+			return merge.proxies.EmployeesListResult.initialize(context, mendixObject);
 
-		if (com.mendix.core.Core.isSubClassOf("Merge.GetLocationsResult", mendixObject.getType()))
-			return merge.proxies.GetLocationsResult.initialize(context, mendixObject);
+		if (com.mendix.core.Core.isSubClassOf("Merge.LocationsListResult", mendixObject.getType()))
+			return merge.proxies.LocationsListResult.initialize(context, mendixObject);
 
 		return new merge.proxies.QueryResult(context, mendixObject);
 	}

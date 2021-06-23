@@ -59,33 +59,11 @@ public class Microflows
 		}
 		return result;
 	}
-	public static java.util.List<merge.proxies.Employee> employeesList(IContext context, java.lang.String _apiKey, merge.proxies.GetEmployeesParam _params)
-	{
-		Map<java.lang.String, Object> params = new HashMap<>();
-		params.put("ApiKey", _apiKey);
-		params.put("Params", _params == null ? null : _params.getMendixObject());
-		java.util.List<IMendixObject> objs = Core.microflowCall("Merge.EmployeesList").withParams(params).execute(context);
-		java.util.List<merge.proxies.Employee> result = null;
-		if (objs != null)
-		{
-			result = new java.util.ArrayList<>();
-			for (IMendixObject obj : objs)
-				result.add(merge.proxies.Employee.initialize(context, obj));
-		}
-		return result;
-	}
 	public static merge.proxies.MergeConfiguration getOrNew_MergeConfiguration(IContext context)
 	{
 		Map<java.lang.String, Object> params = new HashMap<>();
 		IMendixObject result = (IMendixObject)Core.microflowCall("Merge.GetOrNew_MergeConfiguration").withParams(params).execute(context);
 		return result == null ? null : merge.proxies.MergeConfiguration.initialize(context, result);
-	}
-	public static void locationsList(IContext context, java.lang.String _apiKey, merge.proxies.GetLocationsParam _params)
-	{
-		Map<java.lang.String, Object> params = new HashMap<>();
-		params.put("ApiKey", _apiKey);
-		params.put("Params", _params == null ? null : _params.getMendixObject());
-		Core.microflowCall("Merge.LocationsList").withParams(params).execute(context);
 	}
 	public static void proceed_Step2(IContext context, merge.proxies.MergeConfiguration _mergeConfiguration)
 	{
