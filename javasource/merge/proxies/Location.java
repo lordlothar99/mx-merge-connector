@@ -4,12 +4,8 @@
 
 package merge.proxies;
 
-public class Location
+public class Location extends merge.proxies.Entity
 {
-	private final com.mendix.systemwideinterfaces.core.IMendixObject locationMendixObject;
-
-	private final com.mendix.systemwideinterfaces.core.IContext context;
-
 	/**
 	 * Internal name of this entity
 	 */
@@ -20,15 +16,16 @@ public class Location
 	 */
 	public enum MemberNames
 	{
-		_Id("_Id"),
-		RemoteId("RemoteId"),
 		PhoneNumber("PhoneNumber"),
 		Street1("Street1"),
 		Street2("Street2"),
 		City("City"),
 		State("State"),
 		ZipCode("ZipCode"),
-		Country("Country");
+		Country("Country"),
+		_Id("_Id"),
+		RemoteId("RemoteId"),
+		Entity_RemoteData("Merge.Entity_RemoteData");
 
 		private java.lang.String metaName;
 
@@ -51,13 +48,9 @@ public class Location
 
 	protected Location(com.mendix.systemwideinterfaces.core.IContext context, com.mendix.systemwideinterfaces.core.IMendixObject locationMendixObject)
 	{
-		if (locationMendixObject == null)
-			throw new java.lang.IllegalArgumentException("The given object cannot be null.");
+		super(context, locationMendixObject);
 		if (!com.mendix.core.Core.isSubClassOf("Merge.Location", locationMendixObject.getType()))
 			throw new java.lang.IllegalArgumentException("The given object is not a Merge.Location");
-
-		this.locationMendixObject = locationMendixObject;
-		this.context = context;
 	}
 
 	/**
@@ -82,109 +75,6 @@ public class Location
 	{
 		com.mendix.systemwideinterfaces.core.IMendixObject mendixObject = com.mendix.core.Core.retrieveId(context, mendixIdentifier);
 		return merge.proxies.Location.initialize(context, mendixObject);
-	}
-
-	/**
-	 * Commit the changes made on this proxy object.
-	 */
-	public final void commit() throws com.mendix.core.CoreException
-	{
-		com.mendix.core.Core.commit(context, getMendixObject());
-	}
-
-	/**
-	 * Commit the changes made on this proxy object using the specified context.
-	 */
-	public final void commit(com.mendix.systemwideinterfaces.core.IContext context) throws com.mendix.core.CoreException
-	{
-		com.mendix.core.Core.commit(context, getMendixObject());
-	}
-
-	/**
-	 * Delete the object.
-	 */
-	public final void delete()
-	{
-		com.mendix.core.Core.delete(context, getMendixObject());
-	}
-
-	/**
-	 * Delete the object using the specified context.
-	 */
-	public final void delete(com.mendix.systemwideinterfaces.core.IContext context)
-	{
-		com.mendix.core.Core.delete(context, getMendixObject());
-	}
-	/**
-	 * @return value of _Id
-	 */
-	public final java.lang.String get_Id()
-	{
-		return get_Id(getContext());
-	}
-
-	/**
-	 * @param context
-	 * @return value of _Id
-	 */
-	public final java.lang.String get_Id(com.mendix.systemwideinterfaces.core.IContext context)
-	{
-		return (java.lang.String) getMendixObject().getValue(context, MemberNames._Id.toString());
-	}
-
-	/**
-	 * Set value of _Id
-	 * @param _id
-	 */
-	public final void set_Id(java.lang.String _id)
-	{
-		set_Id(getContext(), _id);
-	}
-
-	/**
-	 * Set value of _Id
-	 * @param context
-	 * @param _id
-	 */
-	public final void set_Id(com.mendix.systemwideinterfaces.core.IContext context, java.lang.String _id)
-	{
-		getMendixObject().setValue(context, MemberNames._Id.toString(), _id);
-	}
-
-	/**
-	 * @return value of RemoteId
-	 */
-	public final java.lang.String getRemoteId()
-	{
-		return getRemoteId(getContext());
-	}
-
-	/**
-	 * @param context
-	 * @return value of RemoteId
-	 */
-	public final java.lang.String getRemoteId(com.mendix.systemwideinterfaces.core.IContext context)
-	{
-		return (java.lang.String) getMendixObject().getValue(context, MemberNames.RemoteId.toString());
-	}
-
-	/**
-	 * Set value of RemoteId
-	 * @param remoteid
-	 */
-	public final void setRemoteId(java.lang.String remoteid)
-	{
-		setRemoteId(getContext(), remoteid);
-	}
-
-	/**
-	 * Set value of RemoteId
-	 * @param context
-	 * @param remoteid
-	 */
-	public final void setRemoteId(com.mendix.systemwideinterfaces.core.IContext context, java.lang.String remoteid)
-	{
-		getMendixObject().setValue(context, MemberNames.RemoteId.toString(), remoteid);
 	}
 
 	/**
@@ -439,22 +329,6 @@ public class Location
 		getMendixObject().setValue(context, MemberNames.Country.toString(), country);
 	}
 
-	/**
-	 * @return the IMendixObject instance of this proxy for use in the Core interface.
-	 */
-	public final com.mendix.systemwideinterfaces.core.IMendixObject getMendixObject()
-	{
-		return locationMendixObject;
-	}
-
-	/**
-	 * @return the IContext instance of this proxy, or null if no IContext instance was specified at initialization.
-	 */
-	public final com.mendix.systemwideinterfaces.core.IContext getContext()
-	{
-		return context;
-	}
-
 	@java.lang.Override
 	public boolean equals(Object obj)
 	{
@@ -487,6 +361,7 @@ public class Location
 	 * @return String GUID from this object, format: ID_0000000000
 	 * @deprecated Use getMendixObject().getId().toLong() to get a unique identifier for this object.
 	 */
+	@java.lang.Override
 	@java.lang.Deprecated
 	public java.lang.String getGUID()
 	{

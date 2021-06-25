@@ -15,27 +15,6 @@ public class RemoteData
 	 */
 	public static final java.lang.String entityName = "Merge.RemoteData";
 
-	/**
-	 * Enum describing members of this entity
-	 */
-	public enum MemberNames
-	{
-		RemoteData_Team("Merge.RemoteData_Team");
-
-		private java.lang.String metaName;
-
-		MemberNames(java.lang.String s)
-		{
-			metaName = s;
-		}
-
-		@java.lang.Override
-		public java.lang.String toString()
-		{
-			return metaName;
-		}
-	}
-
 	public RemoteData(com.mendix.systemwideinterfaces.core.IContext context)
 	{
 		this(context, com.mendix.core.Core.instantiate(context, "Merge.RemoteData"));
@@ -107,49 +86,6 @@ public class RemoteData
 	{
 		com.mendix.core.Core.delete(context, getMendixObject());
 	}
-	/**
-	 * @return value of RemoteData_Team
-	 */
-	public final merge.proxies.Team getRemoteData_Team() throws com.mendix.core.CoreException
-	{
-		return getRemoteData_Team(getContext());
-	}
-
-	/**
-	 * @param context
-	 * @return value of RemoteData_Team
-	 */
-	public final merge.proxies.Team getRemoteData_Team(com.mendix.systemwideinterfaces.core.IContext context) throws com.mendix.core.CoreException
-	{
-		merge.proxies.Team result = null;
-		com.mendix.systemwideinterfaces.core.IMendixIdentifier identifier = getMendixObject().getValue(context, MemberNames.RemoteData_Team.toString());
-		if (identifier != null)
-			result = merge.proxies.Team.load(context, identifier);
-		return result;
-	}
-
-	/**
-	 * Set value of RemoteData_Team
-	 * @param remotedata_team
-	 */
-	public final void setRemoteData_Team(merge.proxies.Team remotedata_team)
-	{
-		setRemoteData_Team(getContext(), remotedata_team);
-	}
-
-	/**
-	 * Set value of RemoteData_Team
-	 * @param context
-	 * @param remotedata_team
-	 */
-	public final void setRemoteData_Team(com.mendix.systemwideinterfaces.core.IContext context, merge.proxies.Team remotedata_team)
-	{
-		if (remotedata_team == null)
-			getMendixObject().setValue(context, MemberNames.RemoteData_Team.toString(), null);
-		else
-			getMendixObject().setValue(context, MemberNames.RemoteData_Team.toString(), remotedata_team.getMendixObject().getId());
-	}
-
 	/**
 	 * @return the IMendixObject instance of this proxy for use in the Core interface.
 	 */

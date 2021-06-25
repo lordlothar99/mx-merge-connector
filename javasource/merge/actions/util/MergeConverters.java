@@ -1,11 +1,14 @@
 package merge.actions.util;
 
 import merge.proxies.NullableBoolean;
+import org.threeten.bp.Instant;
 import org.threeten.bp.OffsetDateTime;
 
-import java.time.ZoneOffset;
-
 import java.util.Date;
+
+import static org.threeten.bp.temporal.ChronoField.INSTANT_SECONDS;
+import static org.threeten.bp.temporal.ChronoField.NANO_OF_SECOND;
+
 
 public class MergeConverters {
     private MergeConverters() {
@@ -25,11 +28,19 @@ public class MergeConverters {
 
     public static OffsetDateTime asOffsetDateTime(Date date) {
         if (date == null) return null;
-        java.time.OffsetDateTime java = date.toInstant().atOffset(ZoneOffset.UTC);
-        OffsetDateTime offsetDateTime = OffsetDateTime.of(java.getYear(),
-                java.getMonthValue(), java.getDayOfMonth(),
-                java.getHour(), java.getMinute(), java.getSecond(),
-                java.getNano(), org.threeten.bp.ZoneOffset.of(java.getOffset().getId()));
+
+        Instant instant = Instant.ofEpochMilli(date.getTime());
+        OffsetDateTime offsetDateTime = OffsetDateTime.ofInstant(instant, org.threeten.bp.ZoneOffset.UTC);
         return offsetDateTime;
+    }
+
+    public static Date asDate(OffsetDateTime dateTime) {
+        if (dateTime == null) return null;
+
+        long instantSecs = dateTime.getLong(INSTANT_SECONDS);
+        int nanoOfSecond = dateTime.get(NANO_OF_SECOND);
+        java.time.Instant instant = java.time.Instant.ofEpochSecond(instantSecs, nanoOfSecond);
+        Date date = Date.from(instant);
+        return date;
     }
 }

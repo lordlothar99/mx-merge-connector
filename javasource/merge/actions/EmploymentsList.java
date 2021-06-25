@@ -14,28 +14,29 @@ import com.mendix.logging.ILogNode;
 import com.mendix.systemwideinterfaces.core.IContext;
 import com.mendix.webui.CustomJavaAction;
 import com.mendix.systemwideinterfaces.core.IMendixObject;
+import merge.actions.util.MergeConverters;
 import merge.actions.util.StringUtils;
-import merge.proxies.Team;
-import merge.proxies.TeamsListParams;
+import merge.proxies.*;
 import merge_hris_client.ApiClient;
 import merge_hris_client.ApiException;
 import merge_hris_client.Configuration;
-import merge_hris_client.api.TeamsApi;
+import merge_hris_client.api.EmploymentsApi;
 import merge_hris_client.auth.ApiKeyAuth;
-import merge_hris_client.model.PaginatedTeamList;
+import merge_hris_client.model.PaginatedEmploymentList;
 import org.threeten.bp.OffsetDateTime;
+import java.math.BigDecimal;
+import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
-import static merge.actions.util.MergeConverters.asBoolean;
-import static merge.actions.util.MergeConverters.asOffsetDateTime;
+import static merge.actions.util.MergeConverters.*;
 
-public class TeamsList extends CustomJavaAction<IMendixObject>
+public class EmploymentsList extends CustomJavaAction<IMendixObject>
 {
 	private java.lang.String apiKey;
 	private IMendixObject __params;
-	private merge.proxies.TeamsListParams params;
+	private merge.proxies.EmploymentsListParams params;
 
-	public TeamsList(IContext context, java.lang.String apiKey, IMendixObject params)
+	public EmploymentsList(IContext context, java.lang.String apiKey, IMendixObject params)
 	{
 		super(context);
 		this.apiKey = apiKey;
@@ -45,7 +46,7 @@ public class TeamsList extends CustomJavaAction<IMendixObject>
 	@java.lang.Override
 	public IMendixObject executeAction() throws Exception
 	{
-		this.params = __params == null ? null : merge.proxies.TeamsListParams.initialize(getContext(), __params);
+		this.params = __params == null ? null : merge.proxies.EmploymentsListParams.initialize(getContext(), __params);
 
 		// BEGIN USER CODE
 		if (logger.isTraceEnabled()) {
@@ -54,17 +55,17 @@ public class TeamsList extends CustomJavaAction<IMendixObject>
 			builder.append("params", StringUtils.toString(params.getMendixObject(), getContext(), "    "));
 			logger.trace(builder.toString());
 		}
-		PaginatedTeamList results = getTeams(this.apiKey, this.params);
+		PaginatedEmploymentList results = getEmployments(this.apiKey, this.params);
 		if (logger.isTraceEnabled()) {
 			logger.trace(results);
 		}
-		merge.proxies.PaginatedTeamList mxResult = new merge.proxies.PaginatedTeamList(getContext());
+		merge.proxies.PaginatedEmploymentList mxResult = new merge.proxies.PaginatedEmploymentList(getContext());
 		mxResult.setNext(results.getNext());
 		mxResult.setPrevious(results.getPrevious());
-		List<Team> teams = results.getResults().stream()
-				.map(l -> toMxTeam(l))
+		List<Employment> employments = results.getResults().stream()
+				.map(l -> toMxEmployment(l))
 				.collect(Collectors.toList());
-		mxResult.setPaginatedTeamList_Team(teams);
+		mxResult.setPaginatedEmploymentList_Employment(employments);
 		return mxResult.getMendixObject();
 		// END USER CODE
 	}
@@ -75,21 +76,28 @@ public class TeamsList extends CustomJavaAction<IMendixObject>
 	@java.lang.Override
 	public java.lang.String toString()
 	{
-		return "TeamsList";
+		return "EmploymentsList";
 	}
 
 	// BEGIN EXTRA CODE
-	private static ILogNode logger = Core.getLogger("Merge.TeamsList");
+	private static ILogNode logger = Core.getLogger("Merge.EmploymentsList");
 
-	private merge.proxies.Team toMxTeam(merge_hris_client.model.Team team) {
-		merge.proxies.Team mxTeam = new merge.proxies.Team(getContext());
-		mxTeam.set_Id(team.getId().toString());
-		mxTeam.setRemoteId(team.getRemoteId());
-		mxTeam.setName(team.getName());
-		return mxTeam;
+	private merge.proxies.Employment toMxEmployment(merge_hris_client.model.Employment employment) {
+		merge.proxies.Employment mxEmployment = new merge.proxies.Employment(getContext());
+		mxEmployment.set_Id(employment.getId().toString());
+		mxEmployment.setRemoteId(employment.getRemoteId());
+		mxEmployment.setEffectiveDate(asDate(employment.getEffectiveDate()));
+		if (employment.getEmploymentType() != null) mxEmployment.setEmploymentType(EmploymentTypeEnum.valueOf(employment.getEmploymentType().toString()));
+		if (employment.getFlsaStatus() != null) mxEmployment.setFlsaStatus(FlsaStatusEnum.valueOf(employment.getFlsaStatus().toString()));
+		mxEmployment.setJobTitle(employment.getJobTitle());
+		if (employment.getPayCurrency() != null) mxEmployment.setPayCurrency(employment.getPayCurrency().toString());
+		if (employment.getPayFrequency() != null) mxEmployment.setPayFrequency(PayFrequencyEnum.valueOf(employment.getPayFrequency().toString()));
+		if (employment.getPayPeriod() != null) mxEmployment.setPayPeriod(PayPeriodEnum.valueOf(employment.getPayPeriod().toString()));
+		if (employment.getPayRate() != null) mxEmployment.setPayRate(new BigDecimal(employment.getPayRate()));
+		return mxEmployment;
 	}
 
-	private static PaginatedTeamList getTeams(String apiKey, TeamsListParams params) throws ApiException {
+	private static PaginatedEmploymentList getEmployments(String apiKey, EmploymentsListParams params) throws ApiException {
 		ApiClient defaultClient = Configuration.getDefaultApiClient();
 		defaultClient.setBasePath("https://api.merge.dev/api/hris/v1");
 
@@ -99,18 +107,19 @@ public class TeamsList extends CustomJavaAction<IMendixObject>
 		// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
 		tokenAuth.setApiKeyPrefix("Bearer");
 
-		TeamsApi apiInstance = new TeamsApi(defaultClient);
+		EmploymentsApi apiInstance = new EmploymentsApi(defaultClient);
 		String xAccountToken = params.getAccountToken(); // String | Token identifying the end user.
 		OffsetDateTime createdAfter = asOffsetDateTime(params.getCreatedAfter()); // OffsetDateTime | If provided, will only return objects created after this datetime.
 		OffsetDateTime createdBefore = asOffsetDateTime(params.getCreatedBefore()); // OffsetDateTime | If provided, will only return objects created before this datetime.
 		String cursor = params.getCursor(); // String | The pagination cursor value.
+		String employeeId = params.getEmployeeId(); // String | If provided, will only return employments for this employee.
 		Boolean includeRemoteData = asBoolean(params.getIncludeRemoteData()); // Boolean | Whether to include the original data Merge fetched from the third-party to produce these models.
 		OffsetDateTime modifiedAfter = asOffsetDateTime(params.getModifiedAfter()); // OffsetDateTime | If provided, will only return objects modified after this datetime.
 		OffsetDateTime modifiedBefore = asOffsetDateTime(params.getModifiedBefore()); // OffsetDateTime | If provided, will only return objects modified before this datetime.
 		Integer pageSize = params.getPageSize(); // Integer | Number of results to return per page.
 		String remoteId = params.getRemoteId(); // String | The API provider's ID for the given object.
 
-		PaginatedTeamList result = apiInstance.teamsList(xAccountToken, createdAfter, createdBefore, cursor, includeRemoteData, modifiedAfter, modifiedBefore, pageSize, remoteId);
+		PaginatedEmploymentList result = apiInstance.employmentsList(xAccountToken, createdAfter, createdBefore, cursor, employeeId, includeRemoteData, modifiedAfter, modifiedBefore, pageSize, remoteId);
 		return result;
 	}
 	// END EXTRA CODE

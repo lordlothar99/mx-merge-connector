@@ -46,6 +46,20 @@ public class Microflows
 		}
 		return result;
 	}
+	public static java.util.List<merge.proxies.Employment> dS_Employments(IContext context, merge.proxies.Employee _employee)
+	{
+		Map<java.lang.String, Object> params = new HashMap<>();
+		params.put("Employee", _employee == null ? null : _employee.getMendixObject());
+		java.util.List<IMendixObject> objs = Core.microflowCall("Merge.DS_Employments").withParams(params).execute(context);
+		java.util.List<merge.proxies.Employment> result = null;
+		if (objs != null)
+		{
+			result = new java.util.ArrayList<>();
+			for (IMendixObject obj : objs)
+				result.add(merge.proxies.Employment.initialize(context, obj));
+		}
+		return result;
+	}
 	public static java.util.List<merge.proxies.Location> dS_Locations(IContext context)
 	{
 		Map<java.lang.String, Object> params = new HashMap<>();

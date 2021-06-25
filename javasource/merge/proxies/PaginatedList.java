@@ -71,6 +71,9 @@ public class PaginatedList
 		if (com.mendix.core.Core.isSubClassOf("Merge.PaginatedEmployeeList", mendixObject.getType()))
 			return merge.proxies.PaginatedEmployeeList.initialize(context, mendixObject);
 
+		if (com.mendix.core.Core.isSubClassOf("Merge.PaginatedEmploymentList", mendixObject.getType()))
+			return merge.proxies.PaginatedEmploymentList.initialize(context, mendixObject);
+
 		if (com.mendix.core.Core.isSubClassOf("Merge.PaginatedLocationList", mendixObject.getType()))
 			return merge.proxies.PaginatedLocationList.initialize(context, mendixObject);
 

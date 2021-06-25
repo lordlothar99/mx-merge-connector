@@ -78,6 +78,9 @@ public class QueryParams
 		if (com.mendix.core.Core.isSubClassOf("Merge.EmployeesListParams", mendixObject.getType()))
 			return merge.proxies.EmployeesListParams.initialize(context, mendixObject);
 
+		if (com.mendix.core.Core.isSubClassOf("Merge.EmploymentsListParams", mendixObject.getType()))
+			return merge.proxies.EmploymentsListParams.initialize(context, mendixObject);
+
 		if (com.mendix.core.Core.isSubClassOf("Merge.LocationsListParams", mendixObject.getType()))
 			return merge.proxies.LocationsListParams.initialize(context, mendixObject);
 
