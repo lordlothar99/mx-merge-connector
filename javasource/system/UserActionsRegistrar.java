@@ -11,6 +11,7 @@ public class UserActionsRegistrar
     registrator.registerUserAction(merge.actions.GenerateLinkToken.class);
     registrator.registerUserAction(merge.actions.LocationsList.class);
     registrator.registerUserAction(merge.actions.RetrieveAccountToken.class);
+    registrator.registerUserAction(merge.actions.TeamsList.class);
     registrator.registerUserAction(system.actions.VerifyPassword.class);
   }
 }

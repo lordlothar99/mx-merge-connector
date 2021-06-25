@@ -13,8 +13,8 @@ import com.mendix.logging.ILogNode;
 import com.mendix.systemwideinterfaces.core.IContext;
 import com.mendix.webui.CustomJavaAction;
 import com.mendix.systemwideinterfaces.core.IMendixObject;
+import merge.actions.util.StringUtils;
 import merge.proxies.EmployeesListParams;
-import merge.proxies.EmployeesListResult;
 import merge_hris_client.ApiClient;
 import merge_hris_client.ApiException;
 import merge_hris_client.Configuration;
@@ -25,9 +25,9 @@ import org.threeten.bp.OffsetDateTime;
 import com.mendix.core.Core;
 import java.util.List;
 import java.util.stream.Collectors;
-import static merge.actions.MergeConverters.*;
-import static merge.actions.MergeConverters.asOffsetDateTime;
-import static merge.actions.StringUtils.*;
+import static merge.actions.util.MergeConverters.*;
+import static merge.actions.util.MergeConverters.asOffsetDateTime;
+import static merge.actions.util.StringUtils.*;
 
 public class EmployeesList extends CustomJavaAction<IMendixObject>
 {
@@ -58,13 +58,13 @@ public class EmployeesList extends CustomJavaAction<IMendixObject>
 		if (logger.isTraceEnabled()) {
 			logger.trace(results);
 		}
-		EmployeesListResult mxResult = new EmployeesListResult(getContext());
+		merge.proxies.PaginatedEmployeeList mxResult = new merge.proxies.PaginatedEmployeeList(getContext());
 		mxResult.setNext(results.getNext());
 		mxResult.setPrevious(results.getPrevious());
 		List<merge.proxies.Employee> employees = results.getResults().stream()
 				.map(e -> toMxEmployee(e))
 				.collect(Collectors.toList());
-		mxResult.setEmployeesListResult_Employee(getContext(), employees);
+		mxResult.setPaginatedEmployeeList_Employee(employees);
 		return mxResult.getMendixObject();
 		// END USER CODE
 	}
@@ -79,7 +79,7 @@ public class EmployeesList extends CustomJavaAction<IMendixObject>
 	}
 
 	// BEGIN EXTRA CODE
-	private static ILogNode logger = Core.getLogger("Merge.GetEmployees");
+	private static ILogNode logger = Core.getLogger("Merge.EmployeesList");
 
 	private merge.proxies.Employee toMxEmployee(Employee employee) {
 		merge.proxies.Employee mxEmployee = new merge.proxies.Employee(getContext());
@@ -102,19 +102,19 @@ public class EmployeesList extends CustomJavaAction<IMendixObject>
 
 		EmployeesApi apiInstance = new EmployeesApi(defaultClient);
 		String xAccountToken = params.getAccountToken(); // String | Token identifying the end user.
-		String companyId = null; // String | If provided, will only return employees for this company.
+		String companyId = params.getCompanyId(); // String | If provided, will only return employees for this company.
 		OffsetDateTime createdAfter = asOffsetDateTime(params.getCreatedAfter()); // OffsetDateTime | If provided, will only return objects created after this datetime.
 		OffsetDateTime createdBefore = asOffsetDateTime(params.getCreatedBefore()); // OffsetDateTime | If provided, will only return objects created before this datetime.
-		String cursor = null; // String | The pagination cursor value.
+		String cursor = params.getCursor(); // String | The pagination cursor value.
 		Boolean includeRemoteData = asBoolean(params.getIncludeRemoteData()); // Boolean | Whether to include the original data Merge fetched from the third-party to produce these models.
-		Boolean includeSensitiveFields = null; // Boolean | Whether to include sensetive fields (such as social security numbers) in the response.
-		String managerId = null; // String | If provided, will only return employees for this manager.
+		Boolean includeSensitiveFields = asBoolean(params.getIncludeSensitiveFields()); // Boolean | Whether to include sensetive fields (such as social security numbers) in the response.
+		String managerId = params.getManagerId(); // String | If provided, will only return employees for this manager.
 		OffsetDateTime modifiedAfter = asOffsetDateTime(params.getModifiedAfter()); // OffsetDateTime | If provided, will only return objects modified after this datetime.
 		OffsetDateTime modifiedBefore = asOffsetDateTime(params.getModifiedBefore()); // OffsetDateTime | If provided, will only return objects modified before this datetime.
 		Integer pageSize = params.getPageSize(); // Integer | Number of results to return per page.
 		String remoteId = params.getRemoteId(); // String | The API provider's ID for the given object.
-		String teamId = null; // String | If provided, will only return employees for this team.
-		String workLocationId = null; // String | If provided, will only return employees for this location.
+		String teamId = params.getTeamId(); // String | If provided, will only return employees for this team.
+		String workLocationId = params.getWorkLocationId(); // String | If provided, will only return employees for this location.
 
 		PaginatedEmployeeList result = apiInstance.employeesList(xAccountToken, companyId, createdAfter, createdBefore, cursor, includeRemoteData, includeSensitiveFields, managerId, modifiedAfter, modifiedBefore, pageSize, remoteId, teamId, workLocationId);
 		return result;

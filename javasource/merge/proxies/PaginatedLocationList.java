@@ -4,12 +4,8 @@
 
 package merge.proxies;
 
-public class PaginatedLocationList
+public class PaginatedLocationList extends merge.proxies.PaginatedList
 {
-	private final com.mendix.systemwideinterfaces.core.IMendixObject paginatedLocationListMendixObject;
-
-	private final com.mendix.systemwideinterfaces.core.IContext context;
-
 	/**
 	 * Internal name of this entity
 	 */
@@ -21,7 +17,8 @@ public class PaginatedLocationList
 	public enum MemberNames
 	{
 		Next("Next"),
-		Previous("Previous");
+		Previous("Previous"),
+		PaginatedLocationList_Location("Merge.PaginatedLocationList_Location");
 
 		private java.lang.String metaName;
 
@@ -44,13 +41,9 @@ public class PaginatedLocationList
 
 	protected PaginatedLocationList(com.mendix.systemwideinterfaces.core.IContext context, com.mendix.systemwideinterfaces.core.IMendixObject paginatedLocationListMendixObject)
 	{
-		if (paginatedLocationListMendixObject == null)
-			throw new java.lang.IllegalArgumentException("The given object cannot be null.");
+		super(context, paginatedLocationListMendixObject);
 		if (!com.mendix.core.Core.isSubClassOf("Merge.PaginatedLocationList", paginatedLocationListMendixObject.getType()))
 			throw new java.lang.IllegalArgumentException("The given object is not a Merge.PaginatedLocationList");
-
-		this.paginatedLocationListMendixObject = paginatedLocationListMendixObject;
-		this.context = context;
 	}
 
 	/**
@@ -78,122 +71,49 @@ public class PaginatedLocationList
 	}
 
 	/**
-	 * Commit the changes made on this proxy object.
+	 * @return value of PaginatedLocationList_Location
 	 */
-	public final void commit() throws com.mendix.core.CoreException
+	public final java.util.List<merge.proxies.Location> getPaginatedLocationList_Location() throws com.mendix.core.CoreException
 	{
-		com.mendix.core.Core.commit(context, getMendixObject());
-	}
-
-	/**
-	 * Commit the changes made on this proxy object using the specified context.
-	 */
-	public final void commit(com.mendix.systemwideinterfaces.core.IContext context) throws com.mendix.core.CoreException
-	{
-		com.mendix.core.Core.commit(context, getMendixObject());
-	}
-
-	/**
-	 * Delete the object.
-	 */
-	public final void delete()
-	{
-		com.mendix.core.Core.delete(context, getMendixObject());
-	}
-
-	/**
-	 * Delete the object using the specified context.
-	 */
-	public final void delete(com.mendix.systemwideinterfaces.core.IContext context)
-	{
-		com.mendix.core.Core.delete(context, getMendixObject());
-	}
-	/**
-	 * @return value of Next
-	 */
-	public final java.lang.String getNext()
-	{
-		return getNext(getContext());
+		return getPaginatedLocationList_Location(getContext());
 	}
 
 	/**
 	 * @param context
-	 * @return value of Next
+	 * @return value of PaginatedLocationList_Location
 	 */
-	public final java.lang.String getNext(com.mendix.systemwideinterfaces.core.IContext context)
+	@SuppressWarnings("unchecked")
+	public final java.util.List<merge.proxies.Location> getPaginatedLocationList_Location(com.mendix.systemwideinterfaces.core.IContext context) throws com.mendix.core.CoreException
 	{
-		return (java.lang.String) getMendixObject().getValue(context, MemberNames.Next.toString());
+		java.util.List<merge.proxies.Location> result = new java.util.ArrayList<merge.proxies.Location>();
+		Object valueObject = getMendixObject().getValue(context, MemberNames.PaginatedLocationList_Location.toString());
+		if (valueObject == null)
+			return result;
+		for (com.mendix.systemwideinterfaces.core.IMendixObject mendixObject : com.mendix.core.Core.retrieveIdList(context, (java.util.List<com.mendix.systemwideinterfaces.core.IMendixIdentifier>) valueObject))
+			result.add(merge.proxies.Location.initialize(context, mendixObject));
+		return result;
 	}
 
 	/**
-	 * Set value of Next
-	 * @param next
+	 * Set value of PaginatedLocationList_Location
+	 * @param paginatedlocationlist_location
 	 */
-	public final void setNext(java.lang.String next)
+	public final void setPaginatedLocationList_Location(java.util.List<merge.proxies.Location> paginatedlocationlist_location)
 	{
-		setNext(getContext(), next);
+		setPaginatedLocationList_Location(getContext(), paginatedlocationlist_location);
 	}
 
 	/**
-	 * Set value of Next
+	 * Set value of PaginatedLocationList_Location
 	 * @param context
-	 * @param next
+	 * @param paginatedlocationlist_location
 	 */
-	public final void setNext(com.mendix.systemwideinterfaces.core.IContext context, java.lang.String next)
+	public final void setPaginatedLocationList_Location(com.mendix.systemwideinterfaces.core.IContext context, java.util.List<merge.proxies.Location> paginatedlocationlist_location)
 	{
-		getMendixObject().setValue(context, MemberNames.Next.toString(), next);
-	}
-
-	/**
-	 * @return value of Previous
-	 */
-	public final java.lang.String getPrevious()
-	{
-		return getPrevious(getContext());
-	}
-
-	/**
-	 * @param context
-	 * @return value of Previous
-	 */
-	public final java.lang.String getPrevious(com.mendix.systemwideinterfaces.core.IContext context)
-	{
-		return (java.lang.String) getMendixObject().getValue(context, MemberNames.Previous.toString());
-	}
-
-	/**
-	 * Set value of Previous
-	 * @param previous
-	 */
-	public final void setPrevious(java.lang.String previous)
-	{
-		setPrevious(getContext(), previous);
-	}
-
-	/**
-	 * Set value of Previous
-	 * @param context
-	 * @param previous
-	 */
-	public final void setPrevious(com.mendix.systemwideinterfaces.core.IContext context, java.lang.String previous)
-	{
-		getMendixObject().setValue(context, MemberNames.Previous.toString(), previous);
-	}
-
-	/**
-	 * @return the IMendixObject instance of this proxy for use in the Core interface.
-	 */
-	public final com.mendix.systemwideinterfaces.core.IMendixObject getMendixObject()
-	{
-		return paginatedLocationListMendixObject;
-	}
-
-	/**
-	 * @return the IContext instance of this proxy, or null if no IContext instance was specified at initialization.
-	 */
-	public final com.mendix.systemwideinterfaces.core.IContext getContext()
-	{
-		return context;
+		java.util.List<com.mendix.systemwideinterfaces.core.IMendixIdentifier> identifiers = new java.util.ArrayList<com.mendix.systemwideinterfaces.core.IMendixIdentifier>();
+		for (merge.proxies.Location proxyObject : paginatedlocationlist_location)
+			identifiers.add(proxyObject.getMendixObject().getId());
+		getMendixObject().setValue(context, MemberNames.PaginatedLocationList_Location.toString(), identifiers);
 	}
 
 	@java.lang.Override
@@ -228,6 +148,7 @@ public class PaginatedLocationList
 	 * @return String GUID from this object, format: ID_0000000000
 	 * @deprecated Use getMendixObject().getId().toLong() to get a unique identifier for this object.
 	 */
+	@java.lang.Override
 	@java.lang.Deprecated
 	public java.lang.String getGUID()
 	{

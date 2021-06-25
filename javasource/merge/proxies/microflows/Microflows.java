@@ -59,6 +59,19 @@ public class Microflows
 		}
 		return result;
 	}
+	public static java.util.List<merge.proxies.Team> dS_Teams(IContext context)
+	{
+		Map<java.lang.String, Object> params = new HashMap<>();
+		java.util.List<IMendixObject> objs = Core.microflowCall("Merge.DS_Teams").withParams(params).execute(context);
+		java.util.List<merge.proxies.Team> result = null;
+		if (objs != null)
+		{
+			result = new java.util.ArrayList<>();
+			for (IMendixObject obj : objs)
+				result.add(merge.proxies.Team.initialize(context, obj));
+		}
+		return result;
+	}
 	public static merge.proxies.MergeConfiguration getOrNew_MergeConfiguration(IContext context)
 	{
 		Map<java.lang.String, Object> params = new HashMap<>();

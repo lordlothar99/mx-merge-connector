@@ -13,8 +13,8 @@ import com.mendix.core.Core;
 import com.mendix.logging.ILogNode;
 import com.mendix.systemwideinterfaces.core.IContext;
 import com.mendix.webui.CustomJavaAction;
+import merge.actions.util.StringUtils;
 import merge.proxies.LocationsListParams;
-import merge.proxies.LocationsListResult;
 import merge_hris_client.ApiClient;
 import merge_hris_client.ApiException;
 import merge_hris_client.Configuration;
@@ -25,8 +25,8 @@ import org.threeten.bp.OffsetDateTime;
 import com.mendix.systemwideinterfaces.core.IMendixObject;
 import java.util.List;
 import java.util.stream.Collectors;
-import static merge.actions.MergeConverters.asBoolean;
-import static merge.actions.MergeConverters.asOffsetDateTime;
+import static merge.actions.util.MergeConverters.asBoolean;
+import static merge.actions.util.MergeConverters.asOffsetDateTime;
 
 public class LocationsList extends CustomJavaAction<IMendixObject>
 {
@@ -57,13 +57,13 @@ public class LocationsList extends CustomJavaAction<IMendixObject>
 		if (logger.isTraceEnabled()) {
 			logger.trace(results);
 		}
-		LocationsListResult mxResult = new LocationsListResult(getContext());
+		merge.proxies.PaginatedLocationList mxResult = new merge.proxies.PaginatedLocationList(getContext());
 		mxResult.setNext(results.getNext());
 		mxResult.setPrevious(results.getPrevious());
 		List<merge.proxies.Location> locations = results.getResults().stream()
 				.map(l -> toMxLocation(l))
 				.collect(Collectors.toList());
-		mxResult.setLocationsListResult_Location(getContext(), locations);
+		mxResult.setPaginatedLocationList_Location(locations);
 		return mxResult.getMendixObject();
 		// END USER CODE
 	}
@@ -78,7 +78,7 @@ public class LocationsList extends CustomJavaAction<IMendixObject>
 	}
 
 	// BEGIN EXTRA CODE
-	private static ILogNode logger = Core.getLogger("Merge.GetLocations");
+	private static ILogNode logger = Core.getLogger("Merge.LocationsList");
 
 	private merge.proxies.Location toMxLocation(Location location) {
 		merge.proxies.Location mxLocation = new merge.proxies.Location(getContext());
@@ -108,7 +108,7 @@ public class LocationsList extends CustomJavaAction<IMendixObject>
 		String xAccountToken = params.getAccountToken(); // String | Token identifying the end user.
 		OffsetDateTime createdAfter = asOffsetDateTime(params.getCreatedAfter()); // OffsetDateTime | If provided, will only return objects created after this datetime.
 		OffsetDateTime createdBefore = asOffsetDateTime(params.getCreatedBefore()); // OffsetDateTime | If provided, will only return objects created before this datetime.
-		String cursor = null; // String | The pagination cursor value.
+		String cursor = params.getCursor(); // String | The pagination cursor value.
 		Boolean includeRemoteData = asBoolean(params.getIncludeRemoteData()); // Boolean | Whether to include the original data Merge fetched from the third-party to produce these models.
 		OffsetDateTime modifiedAfter = asOffsetDateTime(params.getModifiedAfter()); // OffsetDateTime | If provided, will only return objects modified after this datetime.
 		OffsetDateTime modifiedBefore = asOffsetDateTime(params.getModifiedBefore()); // OffsetDateTime | If provided, will only return objects modified before this datetime.
