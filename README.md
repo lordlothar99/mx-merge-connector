@@ -13,8 +13,9 @@ This module is a ready-to-use connector handling connection to [Merge](https://w
 * Feel free to download the project from [Github](https://github.com/lordlothar99/mx-merge-connector), there's a runnable demo inside
 
 ## Dependencies
-* Java : Jackson library version 2.12.3 is included
+See ``userlib/merge.requiredlibs`` :
+* Java : see [https://github.com/merge-api/merge-hris-java]
 * Javascript : script ``initialize.js`` is included (downloaded from [https://cdn.merge.dev/initialize.js](https://cdn.merge.dev/initialize.js))
 
 ## Mendix version
-9+
+9.2+
