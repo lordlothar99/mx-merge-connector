@@ -15,6 +15,27 @@ public class RemoteData
 	 */
 	public static final java.lang.String entityName = "Merge.RemoteData";
 
+	/**
+	 * Enum describing members of this entity
+	 */
+	public enum MemberNames
+	{
+		Path("Path");
+
+		private java.lang.String metaName;
+
+		MemberNames(java.lang.String s)
+		{
+			metaName = s;
+		}
+
+		@java.lang.Override
+		public java.lang.String toString()
+		{
+			return metaName;
+		}
+	}
+
 	public RemoteData(com.mendix.systemwideinterfaces.core.IContext context)
 	{
 		this(context, com.mendix.core.Core.instantiate(context, "Merge.RemoteData"));
@@ -86,6 +107,42 @@ public class RemoteData
 	{
 		com.mendix.core.Core.delete(context, getMendixObject());
 	}
+	/**
+	 * @return value of Path
+	 */
+	public final java.lang.String getPath()
+	{
+		return getPath(getContext());
+	}
+
+	/**
+	 * @param context
+	 * @return value of Path
+	 */
+	public final java.lang.String getPath(com.mendix.systemwideinterfaces.core.IContext context)
+	{
+		return (java.lang.String) getMendixObject().getValue(context, MemberNames.Path.toString());
+	}
+
+	/**
+	 * Set value of Path
+	 * @param path
+	 */
+	public final void setPath(java.lang.String path)
+	{
+		setPath(getContext(), path);
+	}
+
+	/**
+	 * Set value of Path
+	 * @param context
+	 * @param path
+	 */
+	public final void setPath(com.mendix.systemwideinterfaces.core.IContext context, java.lang.String path)
+	{
+		getMendixObject().setValue(context, MemberNames.Path.toString(), path);
+	}
+
 	/**
 	 * @return the IMendixObject instance of this proxy for use in the Core interface.
 	 */

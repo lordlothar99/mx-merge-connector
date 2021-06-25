@@ -14,19 +14,19 @@ import com.mendix.systemwideinterfaces.core.IContext;
 import com.mendix.webui.CustomJavaAction;
 import com.mendix.systemwideinterfaces.core.IMendixObject;
 import merge.actions.util.StringUtils;
-import merge.proxies.EmployeesListParams;
+import merge.proxies.*;
 import merge_hris_client.ApiClient;
 import merge_hris_client.ApiException;
 import merge_hris_client.Configuration;
 import merge_hris_client.auth.*;
-import merge_hris_client.model.*;
 import merge_hris_client.api.EmployeesApi;
+import merge_hris_client.model.Employee;
+import merge_hris_client.model.PaginatedEmployeeList;
 import org.threeten.bp.OffsetDateTime;
 import com.mendix.core.Core;
 import java.util.List;
-import java.util.stream.Collectors;
+import static java.util.stream.Collectors.toList;
 import static merge.actions.util.MergeConverters.*;
-import static merge.actions.util.MergeConverters.asOffsetDateTime;
 import static merge.actions.util.StringUtils.*;
 
 public class EmployeesList extends CustomJavaAction<IMendixObject>
@@ -63,7 +63,7 @@ public class EmployeesList extends CustomJavaAction<IMendixObject>
 		mxResult.setPrevious(results.getPrevious());
 		List<merge.proxies.Employee> employees = results.getResults().stream()
 				.map(e -> toMxEmployee(e))
-				.collect(Collectors.toList());
+				.collect(toList());
 		mxResult.setPaginatedEmployeeList_Employee(employees);
 		return mxResult.getMendixObject();
 		// END USER CODE
@@ -84,9 +84,28 @@ public class EmployeesList extends CustomJavaAction<IMendixObject>
 	private merge.proxies.Employee toMxEmployee(Employee employee) {
 		merge.proxies.Employee mxEmployee = new merge.proxies.Employee(getContext());
 		mxEmployee.set_Id(employee.getId().toString());
-		mxEmployee.setFirstName(employee.getFirstName());
-		mxEmployee.setLastName(employee.getLastName());
+		if (employee.getAvatar() != null) mxEmployee.setAvatar(employee.getAvatar().toString());
+		if (employee.getCompany() != null) mxEmployee.setCompany(employee.getCompany().toString());
+		mxEmployee.setDateOfBirth(asDate(employee.getDateOfBirth()));
 		mxEmployee.setDisplayFullName(employee.getDisplayFullName());
+		mxEmployee.setEmployeeNumber(employee.getEmployeeNumber());
+		mxEmployee.setEmployments(employee.getEmployments().stream().map(to_String(getContext())).collect(toList()));
+		if (employee.getEmploymentStatus() != null) mxEmployee.setEmploymentStatus(EmploymentStatusEnum.valueOf(employee.getEmploymentStatus().toString()));
+		if (employee.getEthnicity() != null) mxEmployee.setEthnicity(EthnicityEnum.valueOf(employee.getEthnicity().toString()));
+		mxEmployee.setFirstName(employee.getFirstName());
+		if (employee.getGender() != null) mxEmployee.setGender(GenderEnum.valueOf(employee.getGender().toString()));
+		mxEmployee.setHireDate(asDate(employee.getHireDate()));
+		if (employee.getHomeLocation() != null) mxEmployee.setHomeLocation(employee.getHomeLocation().toString());
+		mxEmployee.setLastName(employee.getLastName());
+		if (employee.getManager() != null) mxEmployee.setManager(employee.getManager().toString());
+		if (employee.getMaritalStatus() != null) mxEmployee.setMaritalStatus(MaritalStatusEnum.valueOf(employee.getMaritalStatus().toString()));
+		mxEmployee.setMobilePhoneNumber(employee.getMobilePhoneNumber());
+		mxEmployee.setPersonalEmail(employee.getPersonalEmail());
+		mxEmployee.setSSN(employee.getSsn());
+		if (employee.getTeam() != null) mxEmployee.setTeam(employee.getTeam().toString());
+		mxEmployee.setTerminationDate(asDate(employee.getTerminationDate()));
+		mxEmployee.setWorkEmail(employee.getWorkEmail());
+		if (employee.getWorkLocation() != null) mxEmployee.setWorkLocation(employee.getWorkLocation().toString());
 		return mxEmployee;
 	}
 

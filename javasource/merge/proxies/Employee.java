@@ -25,8 +25,21 @@ public class Employee extends merge.proxies.Entity
 		PersonalEmail("PersonalEmail"),
 		MobilePhoneNumber("MobilePhoneNumber"),
 		HomeLocation("HomeLocation"),
+		WorkLocation("WorkLocation"),
+		Manager("Manager"),
+		Team("Team"),
+		SSN("SSN"),
+		Gender("Gender"),
+		Ethnicity("Ethnicity"),
+		MaritalStatus("MaritalStatus"),
+		DateOfBirth("DateOfBirth"),
+		HireDate("HireDate"),
+		EmploymentStatus("EmploymentStatus"),
+		TerminationDate("TerminationDate"),
+		Avatar("Avatar"),
 		_Id("_Id"),
 		RemoteId("RemoteId"),
+		Employments("Merge.Employments"),
 		Entity_RemoteData("Merge.Entity_RemoteData");
 
 		private java.lang.String metaName;
@@ -401,6 +414,516 @@ public class Employee extends merge.proxies.Entity
 	public final void setHomeLocation(com.mendix.systemwideinterfaces.core.IContext context, java.lang.String homelocation)
 	{
 		getMendixObject().setValue(context, MemberNames.HomeLocation.toString(), homelocation);
+	}
+
+	/**
+	 * @return value of WorkLocation
+	 */
+	public final java.lang.String getWorkLocation()
+	{
+		return getWorkLocation(getContext());
+	}
+
+	/**
+	 * @param context
+	 * @return value of WorkLocation
+	 */
+	public final java.lang.String getWorkLocation(com.mendix.systemwideinterfaces.core.IContext context)
+	{
+		return (java.lang.String) getMendixObject().getValue(context, MemberNames.WorkLocation.toString());
+	}
+
+	/**
+	 * Set value of WorkLocation
+	 * @param worklocation
+	 */
+	public final void setWorkLocation(java.lang.String worklocation)
+	{
+		setWorkLocation(getContext(), worklocation);
+	}
+
+	/**
+	 * Set value of WorkLocation
+	 * @param context
+	 * @param worklocation
+	 */
+	public final void setWorkLocation(com.mendix.systemwideinterfaces.core.IContext context, java.lang.String worklocation)
+	{
+		getMendixObject().setValue(context, MemberNames.WorkLocation.toString(), worklocation);
+	}
+
+	/**
+	 * @return value of Manager
+	 */
+	public final java.lang.String getManager()
+	{
+		return getManager(getContext());
+	}
+
+	/**
+	 * @param context
+	 * @return value of Manager
+	 */
+	public final java.lang.String getManager(com.mendix.systemwideinterfaces.core.IContext context)
+	{
+		return (java.lang.String) getMendixObject().getValue(context, MemberNames.Manager.toString());
+	}
+
+	/**
+	 * Set value of Manager
+	 * @param manager
+	 */
+	public final void setManager(java.lang.String manager)
+	{
+		setManager(getContext(), manager);
+	}
+
+	/**
+	 * Set value of Manager
+	 * @param context
+	 * @param manager
+	 */
+	public final void setManager(com.mendix.systemwideinterfaces.core.IContext context, java.lang.String manager)
+	{
+		getMendixObject().setValue(context, MemberNames.Manager.toString(), manager);
+	}
+
+	/**
+	 * @return value of Team
+	 */
+	public final java.lang.String getTeam()
+	{
+		return getTeam(getContext());
+	}
+
+	/**
+	 * @param context
+	 * @return value of Team
+	 */
+	public final java.lang.String getTeam(com.mendix.systemwideinterfaces.core.IContext context)
+	{
+		return (java.lang.String) getMendixObject().getValue(context, MemberNames.Team.toString());
+	}
+
+	/**
+	 * Set value of Team
+	 * @param team
+	 */
+	public final void setTeam(java.lang.String team)
+	{
+		setTeam(getContext(), team);
+	}
+
+	/**
+	 * Set value of Team
+	 * @param context
+	 * @param team
+	 */
+	public final void setTeam(com.mendix.systemwideinterfaces.core.IContext context, java.lang.String team)
+	{
+		getMendixObject().setValue(context, MemberNames.Team.toString(), team);
+	}
+
+	/**
+	 * @return value of SSN
+	 */
+	public final java.lang.String getSSN()
+	{
+		return getSSN(getContext());
+	}
+
+	/**
+	 * @param context
+	 * @return value of SSN
+	 */
+	public final java.lang.String getSSN(com.mendix.systemwideinterfaces.core.IContext context)
+	{
+		return (java.lang.String) getMendixObject().getValue(context, MemberNames.SSN.toString());
+	}
+
+	/**
+	 * Set value of SSN
+	 * @param ssn
+	 */
+	public final void setSSN(java.lang.String ssn)
+	{
+		setSSN(getContext(), ssn);
+	}
+
+	/**
+	 * Set value of SSN
+	 * @param context
+	 * @param ssn
+	 */
+	public final void setSSN(com.mendix.systemwideinterfaces.core.IContext context, java.lang.String ssn)
+	{
+		getMendixObject().setValue(context, MemberNames.SSN.toString(), ssn);
+	}
+
+	/**
+	 * Set value of Gender
+	 * @param gender
+	 */
+	public final merge.proxies.GenderEnum getGender()
+	{
+		return getGender(getContext());
+	}
+
+	/**
+	 * @param context
+	 * @return value of Gender
+	 */
+	public final merge.proxies.GenderEnum getGender(com.mendix.systemwideinterfaces.core.IContext context)
+	{
+		Object obj = getMendixObject().getValue(context, MemberNames.Gender.toString());
+		if (obj == null)
+			return null;
+
+		return merge.proxies.GenderEnum.valueOf((java.lang.String) obj);
+	}
+
+	/**
+	 * Set value of Gender
+	 * @param gender
+	 */
+	public final void setGender(merge.proxies.GenderEnum gender)
+	{
+		setGender(getContext(), gender);
+	}
+
+	/**
+	 * Set value of Gender
+	 * @param context
+	 * @param gender
+	 */
+	public final void setGender(com.mendix.systemwideinterfaces.core.IContext context, merge.proxies.GenderEnum gender)
+	{
+		if (gender != null)
+			getMendixObject().setValue(context, MemberNames.Gender.toString(), gender.toString());
+		else
+			getMendixObject().setValue(context, MemberNames.Gender.toString(), null);
+	}
+
+	/**
+	 * Set value of Ethnicity
+	 * @param ethnicity
+	 */
+	public final merge.proxies.EthnicityEnum getEthnicity()
+	{
+		return getEthnicity(getContext());
+	}
+
+	/**
+	 * @param context
+	 * @return value of Ethnicity
+	 */
+	public final merge.proxies.EthnicityEnum getEthnicity(com.mendix.systemwideinterfaces.core.IContext context)
+	{
+		Object obj = getMendixObject().getValue(context, MemberNames.Ethnicity.toString());
+		if (obj == null)
+			return null;
+
+		return merge.proxies.EthnicityEnum.valueOf((java.lang.String) obj);
+	}
+
+	/**
+	 * Set value of Ethnicity
+	 * @param ethnicity
+	 */
+	public final void setEthnicity(merge.proxies.EthnicityEnum ethnicity)
+	{
+		setEthnicity(getContext(), ethnicity);
+	}
+
+	/**
+	 * Set value of Ethnicity
+	 * @param context
+	 * @param ethnicity
+	 */
+	public final void setEthnicity(com.mendix.systemwideinterfaces.core.IContext context, merge.proxies.EthnicityEnum ethnicity)
+	{
+		if (ethnicity != null)
+			getMendixObject().setValue(context, MemberNames.Ethnicity.toString(), ethnicity.toString());
+		else
+			getMendixObject().setValue(context, MemberNames.Ethnicity.toString(), null);
+	}
+
+	/**
+	 * Set value of MaritalStatus
+	 * @param maritalstatus
+	 */
+	public final merge.proxies.MaritalStatusEnum getMaritalStatus()
+	{
+		return getMaritalStatus(getContext());
+	}
+
+	/**
+	 * @param context
+	 * @return value of MaritalStatus
+	 */
+	public final merge.proxies.MaritalStatusEnum getMaritalStatus(com.mendix.systemwideinterfaces.core.IContext context)
+	{
+		Object obj = getMendixObject().getValue(context, MemberNames.MaritalStatus.toString());
+		if (obj == null)
+			return null;
+
+		return merge.proxies.MaritalStatusEnum.valueOf((java.lang.String) obj);
+	}
+
+	/**
+	 * Set value of MaritalStatus
+	 * @param maritalstatus
+	 */
+	public final void setMaritalStatus(merge.proxies.MaritalStatusEnum maritalstatus)
+	{
+		setMaritalStatus(getContext(), maritalstatus);
+	}
+
+	/**
+	 * Set value of MaritalStatus
+	 * @param context
+	 * @param maritalstatus
+	 */
+	public final void setMaritalStatus(com.mendix.systemwideinterfaces.core.IContext context, merge.proxies.MaritalStatusEnum maritalstatus)
+	{
+		if (maritalstatus != null)
+			getMendixObject().setValue(context, MemberNames.MaritalStatus.toString(), maritalstatus.toString());
+		else
+			getMendixObject().setValue(context, MemberNames.MaritalStatus.toString(), null);
+	}
+
+	/**
+	 * @return value of DateOfBirth
+	 */
+	public final java.util.Date getDateOfBirth()
+	{
+		return getDateOfBirth(getContext());
+	}
+
+	/**
+	 * @param context
+	 * @return value of DateOfBirth
+	 */
+	public final java.util.Date getDateOfBirth(com.mendix.systemwideinterfaces.core.IContext context)
+	{
+		return (java.util.Date) getMendixObject().getValue(context, MemberNames.DateOfBirth.toString());
+	}
+
+	/**
+	 * Set value of DateOfBirth
+	 * @param dateofbirth
+	 */
+	public final void setDateOfBirth(java.util.Date dateofbirth)
+	{
+		setDateOfBirth(getContext(), dateofbirth);
+	}
+
+	/**
+	 * Set value of DateOfBirth
+	 * @param context
+	 * @param dateofbirth
+	 */
+	public final void setDateOfBirth(com.mendix.systemwideinterfaces.core.IContext context, java.util.Date dateofbirth)
+	{
+		getMendixObject().setValue(context, MemberNames.DateOfBirth.toString(), dateofbirth);
+	}
+
+	/**
+	 * @return value of HireDate
+	 */
+	public final java.util.Date getHireDate()
+	{
+		return getHireDate(getContext());
+	}
+
+	/**
+	 * @param context
+	 * @return value of HireDate
+	 */
+	public final java.util.Date getHireDate(com.mendix.systemwideinterfaces.core.IContext context)
+	{
+		return (java.util.Date) getMendixObject().getValue(context, MemberNames.HireDate.toString());
+	}
+
+	/**
+	 * Set value of HireDate
+	 * @param hiredate
+	 */
+	public final void setHireDate(java.util.Date hiredate)
+	{
+		setHireDate(getContext(), hiredate);
+	}
+
+	/**
+	 * Set value of HireDate
+	 * @param context
+	 * @param hiredate
+	 */
+	public final void setHireDate(com.mendix.systemwideinterfaces.core.IContext context, java.util.Date hiredate)
+	{
+		getMendixObject().setValue(context, MemberNames.HireDate.toString(), hiredate);
+	}
+
+	/**
+	 * Set value of EmploymentStatus
+	 * @param employmentstatus
+	 */
+	public final merge.proxies.EmploymentStatusEnum getEmploymentStatus()
+	{
+		return getEmploymentStatus(getContext());
+	}
+
+	/**
+	 * @param context
+	 * @return value of EmploymentStatus
+	 */
+	public final merge.proxies.EmploymentStatusEnum getEmploymentStatus(com.mendix.systemwideinterfaces.core.IContext context)
+	{
+		Object obj = getMendixObject().getValue(context, MemberNames.EmploymentStatus.toString());
+		if (obj == null)
+			return null;
+
+		return merge.proxies.EmploymentStatusEnum.valueOf((java.lang.String) obj);
+	}
+
+	/**
+	 * Set value of EmploymentStatus
+	 * @param employmentstatus
+	 */
+	public final void setEmploymentStatus(merge.proxies.EmploymentStatusEnum employmentstatus)
+	{
+		setEmploymentStatus(getContext(), employmentstatus);
+	}
+
+	/**
+	 * Set value of EmploymentStatus
+	 * @param context
+	 * @param employmentstatus
+	 */
+	public final void setEmploymentStatus(com.mendix.systemwideinterfaces.core.IContext context, merge.proxies.EmploymentStatusEnum employmentstatus)
+	{
+		if (employmentstatus != null)
+			getMendixObject().setValue(context, MemberNames.EmploymentStatus.toString(), employmentstatus.toString());
+		else
+			getMendixObject().setValue(context, MemberNames.EmploymentStatus.toString(), null);
+	}
+
+	/**
+	 * @return value of TerminationDate
+	 */
+	public final java.util.Date getTerminationDate()
+	{
+		return getTerminationDate(getContext());
+	}
+
+	/**
+	 * @param context
+	 * @return value of TerminationDate
+	 */
+	public final java.util.Date getTerminationDate(com.mendix.systemwideinterfaces.core.IContext context)
+	{
+		return (java.util.Date) getMendixObject().getValue(context, MemberNames.TerminationDate.toString());
+	}
+
+	/**
+	 * Set value of TerminationDate
+	 * @param terminationdate
+	 */
+	public final void setTerminationDate(java.util.Date terminationdate)
+	{
+		setTerminationDate(getContext(), terminationdate);
+	}
+
+	/**
+	 * Set value of TerminationDate
+	 * @param context
+	 * @param terminationdate
+	 */
+	public final void setTerminationDate(com.mendix.systemwideinterfaces.core.IContext context, java.util.Date terminationdate)
+	{
+		getMendixObject().setValue(context, MemberNames.TerminationDate.toString(), terminationdate);
+	}
+
+	/**
+	 * @return value of Avatar
+	 */
+	public final java.lang.String getAvatar()
+	{
+		return getAvatar(getContext());
+	}
+
+	/**
+	 * @param context
+	 * @return value of Avatar
+	 */
+	public final java.lang.String getAvatar(com.mendix.systemwideinterfaces.core.IContext context)
+	{
+		return (java.lang.String) getMendixObject().getValue(context, MemberNames.Avatar.toString());
+	}
+
+	/**
+	 * Set value of Avatar
+	 * @param avatar
+	 */
+	public final void setAvatar(java.lang.String avatar)
+	{
+		setAvatar(getContext(), avatar);
+	}
+
+	/**
+	 * Set value of Avatar
+	 * @param context
+	 * @param avatar
+	 */
+	public final void setAvatar(com.mendix.systemwideinterfaces.core.IContext context, java.lang.String avatar)
+	{
+		getMendixObject().setValue(context, MemberNames.Avatar.toString(), avatar);
+	}
+
+	/**
+	 * @return value of Employments
+	 */
+	public final java.util.List<merge.proxies._String> getEmployments() throws com.mendix.core.CoreException
+	{
+		return getEmployments(getContext());
+	}
+
+	/**
+	 * @param context
+	 * @return value of Employments
+	 */
+	@SuppressWarnings("unchecked")
+	public final java.util.List<merge.proxies._String> getEmployments(com.mendix.systemwideinterfaces.core.IContext context) throws com.mendix.core.CoreException
+	{
+		java.util.List<merge.proxies._String> result = new java.util.ArrayList<merge.proxies._String>();
+		Object valueObject = getMendixObject().getValue(context, MemberNames.Employments.toString());
+		if (valueObject == null)
+			return result;
+		for (com.mendix.systemwideinterfaces.core.IMendixObject mendixObject : com.mendix.core.Core.retrieveIdList(context, (java.util.List<com.mendix.systemwideinterfaces.core.IMendixIdentifier>) valueObject))
+			result.add(merge.proxies._String.initialize(context, mendixObject));
+		return result;
+	}
+
+	/**
+	 * Set value of Employments
+	 * @param employments
+	 */
+	public final void setEmployments(java.util.List<merge.proxies._String> employments)
+	{
+		setEmployments(getContext(), employments);
+	}
+
+	/**
+	 * Set value of Employments
+	 * @param context
+	 * @param employments
+	 */
+	public final void setEmployments(com.mendix.systemwideinterfaces.core.IContext context, java.util.List<merge.proxies._String> employments)
+	{
+		java.util.List<com.mendix.systemwideinterfaces.core.IMendixIdentifier> identifiers = new java.util.ArrayList<com.mendix.systemwideinterfaces.core.IMendixIdentifier>();
+		for (merge.proxies._String proxyObject : employments)
+			identifiers.add(proxyObject.getMendixObject().getId());
+		getMendixObject().setValue(context, MemberNames.Employments.toString(), identifiers);
 	}
 
 	@java.lang.Override

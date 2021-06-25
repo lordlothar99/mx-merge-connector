@@ -84,7 +84,7 @@ public class LocationsList extends CustomJavaAction<IMendixObject>
 		merge.proxies.Location mxLocation = new merge.proxies.Location(getContext());
 		mxLocation.set_Id(location.getId().toString());
 		mxLocation.setCity(location.getCity());
-		mxLocation.setCountry(location.getCountry().getValue());
+		if (location.getCountry() != null) mxLocation.setCountry(location.getCountry().getValue());
 		mxLocation.setPhoneNumber(location.getPhoneNumber());
 		mxLocation.setRemoteId(location.getRemoteId());
 		mxLocation.setState(location.getState());
