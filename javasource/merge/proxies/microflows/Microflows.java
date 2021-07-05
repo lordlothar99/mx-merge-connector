@@ -28,10 +28,16 @@ public class Microflows
 		params.put("ApiKey", _apiKey);
 		return (java.lang.String) Core.microflowCall("Merge.Act_RetrieveAccountToken").withParams(params).execute(context);
 	}
-	public static void backTo_Step1(IContext context)
+	public static void act_SyncEmployees(IContext context, merge.proxies.SyncContext _syncContext)
 	{
 		Map<java.lang.String, Object> params = new HashMap<>();
-		Core.microflowCall("Merge.BackTo_Step1").withParams(params).execute(context);
+		params.put("SyncContext", _syncContext == null ? null : _syncContext.getMendixObject());
+		Core.microflowCall("Merge.Act_SyncEmployees").withParams(params).execute(context);
+	}
+	public static void back_2_Steps(IContext context)
+	{
+		Map<java.lang.String, Object> params = new HashMap<>();
+		Core.microflowCall("Merge.Back_2_Steps").withParams(params).execute(context);
 	}
 	public static java.util.List<merge.proxies.Employee> dS_Employees(IContext context)
 	{
@@ -91,6 +97,14 @@ public class Microflows
 		Map<java.lang.String, Object> params = new HashMap<>();
 		IMendixObject result = (IMendixObject)Core.microflowCall("Merge.GetOrNew_MergeConfiguration").withParams(params).execute(context);
 		return result == null ? null : merge.proxies.MergeConfiguration.initialize(context, result);
+	}
+	public static void new_SyncLogEntry(IContext context, merge.proxies.SyncProcess _syncProcess, merge.proxies.LogLevel _logLevel, java.lang.String _message)
+	{
+		Map<java.lang.String, Object> params = new HashMap<>();
+		params.put("SyncProcess", _syncProcess == null ? null : _syncProcess.getMendixObject());
+		params.put("LogLevel", _logLevel == null ? null : _logLevel.name());
+		params.put("Message", _message);
+		Core.microflowCall("Merge.New_SyncLogEntry").withParams(params).execute(context);
 	}
 	public static void proceed_Step2(IContext context, merge.proxies.MergeConfiguration _mergeConfiguration)
 	{

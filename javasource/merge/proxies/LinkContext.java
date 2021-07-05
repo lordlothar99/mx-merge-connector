@@ -20,8 +20,9 @@ public class LinkContext
 	 */
 	public enum MemberNames
 	{
-		LinkToken("LinkToken"),
-		PublicToken("PublicToken"),
+		LinkTokenStatus("LinkTokenStatus"),
+		PublicTokenStatus("PublicTokenStatus"),
+		AccountTokenStatus("AccountTokenStatus"),
 		AccountToken("AccountToken"),
 		LinkContext_MergeConfiguration("Merge.LinkContext_MergeConfiguration");
 
@@ -111,98 +112,141 @@ public class LinkContext
 		com.mendix.core.Core.delete(context, getMendixObject());
 	}
 	/**
-	 * Set value of LinkToken
-	 * @param linktoken
+	 * Set value of LinkTokenStatus
+	 * @param linktokenstatus
 	 */
-	public final merge.proxies.LinkStatus getLinkToken()
+	public final merge.proxies.SyncStatus getLinkTokenStatus()
 	{
-		return getLinkToken(getContext());
+		return getLinkTokenStatus(getContext());
 	}
 
 	/**
 	 * @param context
-	 * @return value of LinkToken
+	 * @return value of LinkTokenStatus
 	 */
-	public final merge.proxies.LinkStatus getLinkToken(com.mendix.systemwideinterfaces.core.IContext context)
+	public final merge.proxies.SyncStatus getLinkTokenStatus(com.mendix.systemwideinterfaces.core.IContext context)
 	{
-		Object obj = getMendixObject().getValue(context, MemberNames.LinkToken.toString());
+		Object obj = getMendixObject().getValue(context, MemberNames.LinkTokenStatus.toString());
 		if (obj == null)
 			return null;
 
-		return merge.proxies.LinkStatus.valueOf((java.lang.String) obj);
+		return merge.proxies.SyncStatus.valueOf((java.lang.String) obj);
 	}
 
 	/**
-	 * Set value of LinkToken
-	 * @param linktoken
+	 * Set value of LinkTokenStatus
+	 * @param linktokenstatus
 	 */
-	public final void setLinkToken(merge.proxies.LinkStatus linktoken)
+	public final void setLinkTokenStatus(merge.proxies.SyncStatus linktokenstatus)
 	{
-		setLinkToken(getContext(), linktoken);
+		setLinkTokenStatus(getContext(), linktokenstatus);
 	}
 
 	/**
-	 * Set value of LinkToken
+	 * Set value of LinkTokenStatus
 	 * @param context
-	 * @param linktoken
+	 * @param linktokenstatus
 	 */
-	public final void setLinkToken(com.mendix.systemwideinterfaces.core.IContext context, merge.proxies.LinkStatus linktoken)
+	public final void setLinkTokenStatus(com.mendix.systemwideinterfaces.core.IContext context, merge.proxies.SyncStatus linktokenstatus)
 	{
-		if (linktoken != null)
-			getMendixObject().setValue(context, MemberNames.LinkToken.toString(), linktoken.toString());
+		if (linktokenstatus != null)
+			getMendixObject().setValue(context, MemberNames.LinkTokenStatus.toString(), linktokenstatus.toString());
 		else
-			getMendixObject().setValue(context, MemberNames.LinkToken.toString(), null);
+			getMendixObject().setValue(context, MemberNames.LinkTokenStatus.toString(), null);
 	}
 
 	/**
-	 * Set value of PublicToken
-	 * @param publictoken
+	 * Set value of PublicTokenStatus
+	 * @param publictokenstatus
 	 */
-	public final merge.proxies.LinkStatus getPublicToken()
+	public final merge.proxies.SyncStatus getPublicTokenStatus()
 	{
-		return getPublicToken(getContext());
+		return getPublicTokenStatus(getContext());
 	}
 
 	/**
 	 * @param context
-	 * @return value of PublicToken
+	 * @return value of PublicTokenStatus
 	 */
-	public final merge.proxies.LinkStatus getPublicToken(com.mendix.systemwideinterfaces.core.IContext context)
+	public final merge.proxies.SyncStatus getPublicTokenStatus(com.mendix.systemwideinterfaces.core.IContext context)
 	{
-		Object obj = getMendixObject().getValue(context, MemberNames.PublicToken.toString());
+		Object obj = getMendixObject().getValue(context, MemberNames.PublicTokenStatus.toString());
 		if (obj == null)
 			return null;
 
-		return merge.proxies.LinkStatus.valueOf((java.lang.String) obj);
+		return merge.proxies.SyncStatus.valueOf((java.lang.String) obj);
 	}
 
 	/**
-	 * Set value of PublicToken
-	 * @param publictoken
+	 * Set value of PublicTokenStatus
+	 * @param publictokenstatus
 	 */
-	public final void setPublicToken(merge.proxies.LinkStatus publictoken)
+	public final void setPublicTokenStatus(merge.proxies.SyncStatus publictokenstatus)
 	{
-		setPublicToken(getContext(), publictoken);
+		setPublicTokenStatus(getContext(), publictokenstatus);
 	}
 
 	/**
-	 * Set value of PublicToken
+	 * Set value of PublicTokenStatus
 	 * @param context
-	 * @param publictoken
+	 * @param publictokenstatus
 	 */
-	public final void setPublicToken(com.mendix.systemwideinterfaces.core.IContext context, merge.proxies.LinkStatus publictoken)
+	public final void setPublicTokenStatus(com.mendix.systemwideinterfaces.core.IContext context, merge.proxies.SyncStatus publictokenstatus)
 	{
-		if (publictoken != null)
-			getMendixObject().setValue(context, MemberNames.PublicToken.toString(), publictoken.toString());
+		if (publictokenstatus != null)
+			getMendixObject().setValue(context, MemberNames.PublicTokenStatus.toString(), publictokenstatus.toString());
 		else
-			getMendixObject().setValue(context, MemberNames.PublicToken.toString(), null);
+			getMendixObject().setValue(context, MemberNames.PublicTokenStatus.toString(), null);
 	}
 
 	/**
-	 * Set value of AccountToken
-	 * @param accounttoken
+	 * Set value of AccountTokenStatus
+	 * @param accounttokenstatus
 	 */
-	public final merge.proxies.LinkStatus getAccountToken()
+	public final merge.proxies.SyncStatus getAccountTokenStatus()
+	{
+		return getAccountTokenStatus(getContext());
+	}
+
+	/**
+	 * @param context
+	 * @return value of AccountTokenStatus
+	 */
+	public final merge.proxies.SyncStatus getAccountTokenStatus(com.mendix.systemwideinterfaces.core.IContext context)
+	{
+		Object obj = getMendixObject().getValue(context, MemberNames.AccountTokenStatus.toString());
+		if (obj == null)
+			return null;
+
+		return merge.proxies.SyncStatus.valueOf((java.lang.String) obj);
+	}
+
+	/**
+	 * Set value of AccountTokenStatus
+	 * @param accounttokenstatus
+	 */
+	public final void setAccountTokenStatus(merge.proxies.SyncStatus accounttokenstatus)
+	{
+		setAccountTokenStatus(getContext(), accounttokenstatus);
+	}
+
+	/**
+	 * Set value of AccountTokenStatus
+	 * @param context
+	 * @param accounttokenstatus
+	 */
+	public final void setAccountTokenStatus(com.mendix.systemwideinterfaces.core.IContext context, merge.proxies.SyncStatus accounttokenstatus)
+	{
+		if (accounttokenstatus != null)
+			getMendixObject().setValue(context, MemberNames.AccountTokenStatus.toString(), accounttokenstatus.toString());
+		else
+			getMendixObject().setValue(context, MemberNames.AccountTokenStatus.toString(), null);
+	}
+
+	/**
+	 * @return value of AccountToken
+	 */
+	public final java.lang.String getAccountToken()
 	{
 		return getAccountToken(getContext());
 	}
@@ -211,20 +255,16 @@ public class LinkContext
 	 * @param context
 	 * @return value of AccountToken
 	 */
-	public final merge.proxies.LinkStatus getAccountToken(com.mendix.systemwideinterfaces.core.IContext context)
+	public final java.lang.String getAccountToken(com.mendix.systemwideinterfaces.core.IContext context)
 	{
-		Object obj = getMendixObject().getValue(context, MemberNames.AccountToken.toString());
-		if (obj == null)
-			return null;
-
-		return merge.proxies.LinkStatus.valueOf((java.lang.String) obj);
+		return (java.lang.String) getMendixObject().getValue(context, MemberNames.AccountToken.toString());
 	}
 
 	/**
 	 * Set value of AccountToken
 	 * @param accounttoken
 	 */
-	public final void setAccountToken(merge.proxies.LinkStatus accounttoken)
+	public final void setAccountToken(java.lang.String accounttoken)
 	{
 		setAccountToken(getContext(), accounttoken);
 	}
@@ -234,12 +274,9 @@ public class LinkContext
 	 * @param context
 	 * @param accounttoken
 	 */
-	public final void setAccountToken(com.mendix.systemwideinterfaces.core.IContext context, merge.proxies.LinkStatus accounttoken)
+	public final void setAccountToken(com.mendix.systemwideinterfaces.core.IContext context, java.lang.String accounttoken)
 	{
-		if (accounttoken != null)
-			getMendixObject().setValue(context, MemberNames.AccountToken.toString(), accounttoken.toString());
-		else
-			getMendixObject().setValue(context, MemberNames.AccountToken.toString(), null);
+		getMendixObject().setValue(context, MemberNames.AccountToken.toString(), accounttoken);
 	}
 
 	/**
