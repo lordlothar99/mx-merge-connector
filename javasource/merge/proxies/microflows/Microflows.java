@@ -21,6 +21,11 @@ public class Microflows
 		params.put("Configuration", _configuration == null ? null : _configuration.getMendixObject());
 		return (java.lang.String) Core.microflowCall("Merge.Act_GenerateLinkToken").withParams(params).execute(context);
 	}
+	public static void act_ReSync(IContext context)
+	{
+		Map<java.lang.String, Object> params = new HashMap<>();
+		Core.microflowCall("Merge.Act_ReSync").withParams(params).execute(context);
+	}
 	public static java.lang.String act_RetrieveAccountToken(IContext context, java.lang.String _publicToken, java.lang.String _apiKey)
 	{
 		Map<java.lang.String, Object> params = new HashMap<>();
@@ -117,6 +122,14 @@ public class Microflows
 		Map<java.lang.String, Object> params = new HashMap<>();
 		params.put("LinkContext", _linkContext == null ? null : _linkContext.getMendixObject());
 		Core.microflowCall("Merge.Proceed_Step3").withParams(params).execute(context);
+	}
+	public static merge.proxies.SyncStatusObject reSync(IContext context, java.lang.String _apiKey, java.lang.String _accountToken)
+	{
+		Map<java.lang.String, Object> params = new HashMap<>();
+		params.put("ApiKey", _apiKey);
+		params.put("AccountToken", _accountToken);
+		IMendixObject result = (IMendixObject)Core.microflowCall("Merge.ReSync").withParams(params).execute(context);
+		return result == null ? null : merge.proxies.SyncStatusObject.initialize(context, result);
 	}
 	public static merge.proxies.SyncStatusResponse syncStatus(IContext context, java.lang.String _apiKey, java.lang.String _accountToken)
 	{
