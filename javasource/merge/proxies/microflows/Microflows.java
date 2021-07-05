@@ -15,10 +15,10 @@ import com.mendix.systemwideinterfaces.core.IMendixObject;
 public class Microflows
 {
 	// These are the microflows for the Merge module
-	public static java.lang.String act_GenerateLinkToken(IContext context, merge.proxies.MergeConfiguration _mergeConfiguration)
+	public static java.lang.String act_GenerateLinkToken(IContext context, merge.proxies.Configuration _configuration)
 	{
 		Map<java.lang.String, Object> params = new HashMap<>();
-		params.put("MergeConfiguration", _mergeConfiguration == null ? null : _mergeConfiguration.getMendixObject());
+		params.put("Configuration", _configuration == null ? null : _configuration.getMendixObject());
 		return (java.lang.String) Core.microflowCall("Merge.Act_GenerateLinkToken").withParams(params).execute(context);
 	}
 	public static java.lang.String act_RetrieveAccountToken(IContext context, java.lang.String _publicToken, java.lang.String _apiKey)
@@ -38,19 +38,6 @@ public class Microflows
 	{
 		Map<java.lang.String, Object> params = new HashMap<>();
 		Core.microflowCall("Merge.Back_2_Steps").withParams(params).execute(context);
-	}
-	public static java.util.List<merge.proxies.Employee> dS_Employees(IContext context)
-	{
-		Map<java.lang.String, Object> params = new HashMap<>();
-		java.util.List<IMendixObject> objs = Core.microflowCall("Merge.DS_Employees").withParams(params).execute(context);
-		java.util.List<merge.proxies.Employee> result = null;
-		if (objs != null)
-		{
-			result = new java.util.ArrayList<>();
-			for (IMendixObject obj : objs)
-				result.add(merge.proxies.Employee.initialize(context, obj));
-		}
-		return result;
 	}
 	public static java.util.List<merge.proxies.Employment> dS_Employments(IContext context, merge.proxies.Employee _employee)
 	{
@@ -79,6 +66,19 @@ public class Microflows
 		}
 		return result;
 	}
+	public static java.util.List<merge.proxies.SyncStatusObject> dS_SyncStatus(IContext context)
+	{
+		Map<java.lang.String, Object> params = new HashMap<>();
+		java.util.List<IMendixObject> objs = Core.microflowCall("Merge.DS_SyncStatus").withParams(params).execute(context);
+		java.util.List<merge.proxies.SyncStatusObject> result = null;
+		if (objs != null)
+		{
+			result = new java.util.ArrayList<>();
+			for (IMendixObject obj : objs)
+				result.add(merge.proxies.SyncStatusObject.initialize(context, obj));
+		}
+		return result;
+	}
 	public static java.util.List<merge.proxies.Team> dS_Teams(IContext context)
 	{
 		Map<java.lang.String, Object> params = new HashMap<>();
@@ -92,11 +92,11 @@ public class Microflows
 		}
 		return result;
 	}
-	public static merge.proxies.MergeConfiguration getOrNew_MergeConfiguration(IContext context)
+	public static merge.proxies.Configuration getOrNew_Config(IContext context)
 	{
 		Map<java.lang.String, Object> params = new HashMap<>();
-		IMendixObject result = (IMendixObject)Core.microflowCall("Merge.GetOrNew_MergeConfiguration").withParams(params).execute(context);
-		return result == null ? null : merge.proxies.MergeConfiguration.initialize(context, result);
+		IMendixObject result = (IMendixObject)Core.microflowCall("Merge.GetOrNew_Config").withParams(params).execute(context);
+		return result == null ? null : merge.proxies.Configuration.initialize(context, result);
 	}
 	public static void new_SyncLogEntry(IContext context, merge.proxies.SyncProcess _syncProcess, merge.proxies.LogLevel _logLevel, java.lang.String _message)
 	{
@@ -106,10 +106,10 @@ public class Microflows
 		params.put("Message", _message);
 		Core.microflowCall("Merge.New_SyncLogEntry").withParams(params).execute(context);
 	}
-	public static void proceed_Step2(IContext context, merge.proxies.MergeConfiguration _mergeConfiguration)
+	public static void proceed_Step2(IContext context, merge.proxies.Configuration _configuration)
 	{
 		Map<java.lang.String, Object> params = new HashMap<>();
-		params.put("MergeConfiguration", _mergeConfiguration == null ? null : _mergeConfiguration.getMendixObject());
+		params.put("Configuration", _configuration == null ? null : _configuration.getMendixObject());
 		Core.microflowCall("Merge.Proceed_Step2").withParams(params).execute(context);
 	}
 	public static void proceed_Step3(IContext context, merge.proxies.LinkContext _linkContext)
@@ -117,5 +117,13 @@ public class Microflows
 		Map<java.lang.String, Object> params = new HashMap<>();
 		params.put("LinkContext", _linkContext == null ? null : _linkContext.getMendixObject());
 		Core.microflowCall("Merge.Proceed_Step3").withParams(params).execute(context);
+	}
+	public static merge.proxies.SyncStatusResponse syncStatus(IContext context, java.lang.String _apiKey, java.lang.String _accountToken)
+	{
+		Map<java.lang.String, Object> params = new HashMap<>();
+		params.put("ApiKey", _apiKey);
+		params.put("AccountToken", _accountToken);
+		IMendixObject result = (IMendixObject)Core.microflowCall("Merge.SyncStatus").withParams(params).execute(context);
+		return result == null ? null : merge.proxies.SyncStatusResponse.initialize(context, result);
 	}
 }

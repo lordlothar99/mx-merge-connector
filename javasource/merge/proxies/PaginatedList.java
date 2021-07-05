@@ -80,6 +80,9 @@ public class PaginatedList
 		if (com.mendix.core.Core.isSubClassOf("Merge.PaginatedTeamList", mendixObject.getType()))
 			return merge.proxies.PaginatedTeamList.initialize(context, mendixObject);
 
+		if (com.mendix.core.Core.isSubClassOf("Merge.SyncStatusResponse", mendixObject.getType()))
+			return merge.proxies.SyncStatusResponse.initialize(context, mendixObject);
+
 		return new merge.proxies.PaginatedList(context, mendixObject);
 	}
 

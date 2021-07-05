@@ -24,7 +24,7 @@ public class LinkContext
 		PublicTokenStatus("PublicTokenStatus"),
 		AccountTokenStatus("AccountTokenStatus"),
 		AccountToken("AccountToken"),
-		LinkContext_MergeConfiguration("Merge.LinkContext_MergeConfiguration");
+		LinkContext_Configuration("Merge.LinkContext_Configuration");
 
 		private java.lang.String metaName;
 
@@ -280,46 +280,46 @@ public class LinkContext
 	}
 
 	/**
-	 * @return value of LinkContext_MergeConfiguration
+	 * @return value of LinkContext_Configuration
 	 */
-	public final merge.proxies.MergeConfiguration getLinkContext_MergeConfiguration() throws com.mendix.core.CoreException
+	public final merge.proxies.Configuration getLinkContext_Configuration() throws com.mendix.core.CoreException
 	{
-		return getLinkContext_MergeConfiguration(getContext());
+		return getLinkContext_Configuration(getContext());
 	}
 
 	/**
 	 * @param context
-	 * @return value of LinkContext_MergeConfiguration
+	 * @return value of LinkContext_Configuration
 	 */
-	public final merge.proxies.MergeConfiguration getLinkContext_MergeConfiguration(com.mendix.systemwideinterfaces.core.IContext context) throws com.mendix.core.CoreException
+	public final merge.proxies.Configuration getLinkContext_Configuration(com.mendix.systemwideinterfaces.core.IContext context) throws com.mendix.core.CoreException
 	{
-		merge.proxies.MergeConfiguration result = null;
-		com.mendix.systemwideinterfaces.core.IMendixIdentifier identifier = getMendixObject().getValue(context, MemberNames.LinkContext_MergeConfiguration.toString());
+		merge.proxies.Configuration result = null;
+		com.mendix.systemwideinterfaces.core.IMendixIdentifier identifier = getMendixObject().getValue(context, MemberNames.LinkContext_Configuration.toString());
 		if (identifier != null)
-			result = merge.proxies.MergeConfiguration.load(context, identifier);
+			result = merge.proxies.Configuration.load(context, identifier);
 		return result;
 	}
 
 	/**
-	 * Set value of LinkContext_MergeConfiguration
-	 * @param linkcontext_mergeconfiguration
+	 * Set value of LinkContext_Configuration
+	 * @param linkcontext_configuration
 	 */
-	public final void setLinkContext_MergeConfiguration(merge.proxies.MergeConfiguration linkcontext_mergeconfiguration)
+	public final void setLinkContext_Configuration(merge.proxies.Configuration linkcontext_configuration)
 	{
-		setLinkContext_MergeConfiguration(getContext(), linkcontext_mergeconfiguration);
+		setLinkContext_Configuration(getContext(), linkcontext_configuration);
 	}
 
 	/**
-	 * Set value of LinkContext_MergeConfiguration
+	 * Set value of LinkContext_Configuration
 	 * @param context
-	 * @param linkcontext_mergeconfiguration
+	 * @param linkcontext_configuration
 	 */
-	public final void setLinkContext_MergeConfiguration(com.mendix.systemwideinterfaces.core.IContext context, merge.proxies.MergeConfiguration linkcontext_mergeconfiguration)
+	public final void setLinkContext_Configuration(com.mendix.systemwideinterfaces.core.IContext context, merge.proxies.Configuration linkcontext_configuration)
 	{
-		if (linkcontext_mergeconfiguration == null)
-			getMendixObject().setValue(context, MemberNames.LinkContext_MergeConfiguration.toString(), null);
+		if (linkcontext_configuration == null)
+			getMendixObject().setValue(context, MemberNames.LinkContext_Configuration.toString(), null);
 		else
-			getMendixObject().setValue(context, MemberNames.LinkContext_MergeConfiguration.toString(), linkcontext_mergeconfiguration.getMendixObject().getId());
+			getMendixObject().setValue(context, MemberNames.LinkContext_Configuration.toString(), linkcontext_configuration.getMendixObject().getId());
 	}
 
 	/**

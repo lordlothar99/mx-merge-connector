@@ -28,7 +28,7 @@ import java.util.Map;
 public class GenerateLinkToken extends CustomJavaAction<java.lang.String>
 {
 	private IMendixObject __configuration;
-	private merge.proxies.MergeConfiguration configuration;
+	private merge.proxies.Configuration configuration;
 
 	public GenerateLinkToken(IContext context, IMendixObject configuration)
 	{
@@ -39,7 +39,7 @@ public class GenerateLinkToken extends CustomJavaAction<java.lang.String>
 	@java.lang.Override
 	public java.lang.String executeAction() throws Exception
 	{
-		this.configuration = __configuration == null ? null : merge.proxies.MergeConfiguration.initialize(getContext(), __configuration);
+		this.configuration = __configuration == null ? null : merge.proxies.Configuration.initialize(getContext(), __configuration);
 
 		// BEGIN USER CODE
 		return createLinkToken(this.configuration);
@@ -60,7 +60,7 @@ public class GenerateLinkToken extends CustomJavaAction<java.lang.String>
 	 * @see "https://www.merge.dev/docs/linking-flow/get-started"
 	 * @return link_token
 	 */
-	private static String createLinkToken(merge.proxies.MergeConfiguration configuration)
+	private static String createLinkToken(merge.proxies.Configuration configuration)
 			throws IOException, InterruptedException, CoreException {
 		return createLinkToken(configuration.getOrganizationId(),
 				configuration.getOrganizationName(),
