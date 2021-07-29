@@ -21,11 +21,6 @@ public class Microflows
 		params.put("Configuration", _configuration == null ? null : _configuration.getMendixObject());
 		return (java.lang.String) Core.microflowCall("Merge.Act_GenerateLinkToken").withParams(params).execute(context);
 	}
-	public static void act_ReSync(IContext context)
-	{
-		Map<java.lang.String, Object> params = new HashMap<>();
-		Core.microflowCall("Merge.Act_ReSync").withParams(params).execute(context);
-	}
 	public static java.lang.String act_RetrieveAccountToken(IContext context, java.lang.String _publicToken, java.lang.String _apiKey)
 	{
 		Map<java.lang.String, Object> params = new HashMap<>();
